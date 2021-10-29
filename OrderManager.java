@@ -1,3 +1,6 @@
+import java.util.Date;
+import java.util.List;
+
 public class OrderManager {
 
 	private List<Order> currentOrders;
@@ -8,23 +11,18 @@ public class OrderManager {
 	 * @param startDate
 	 * @param endDate
 	 */
-	public void generateSalesRevenueReport(int startDate, int endDate) {
+	public void generateSalesRevenueReport(Date startDate, Date endDate) {
 		// TODO - implement OrderManager.generateSalesRevenueReport
 		throw new UnsupportedOperationException();
 	}
 
-	public void createOrder() {
+	public void createOrder(Staff staff, Date datetime, int tableNumber, Customer customer) {
 		// TODO - implement OrderManager.createOrder
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param orderID
-	 */
-	public void viewOrder(int orderID) {
-		// TODO - implement OrderManager.viewOrder
+	public Order getOrder(int tableNumber) {
+		// TODO - implement OrderManager.createOrder
 		throw new UnsupportedOperationException();
 	}
-
 }
