@@ -1,7 +1,8 @@
 public class MenuItem {
 
-	private string name;
-	private string description;
+	private String name;
+	private String description;
 	private float price;
 
+	
 }
