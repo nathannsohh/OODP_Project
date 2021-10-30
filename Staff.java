@@ -1,9 +1,9 @@
 public class Staff {
 
-	private string name;
-	private string gender;
-	private string employeeId;
-	private string jobTitle;
+	private String name;
+	private String gender;
+	private String employeeId;
+	private String jobTitle;
 
 	public void assignTable() {
 		// TODO - implement Staff.assignTable
