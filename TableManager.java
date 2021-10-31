@@ -1,3 +1,6 @@
+import java.util.Date;
+import java.util.List;
+
 public class TableManager {
 
 	private Table[] tables;
@@ -11,6 +14,13 @@ public class TableManager {
 			else if(i%5==3) tables[i] = new Table(i+1, 8, true);
 			else if(i%5==4) tables[i] = new Table(i+1, 10, true);
 		}
+	public boolean checkAvailability(int pax, Date datetime) {
+		// TODO - implement TableManager.checkAvailability
+		throw new UnsupportedOperationException();
+	}
+	public boolean checkAvailability(int pax) {
+		// TODO - implement TableManager.checkAvailability
+		throw new UnsupportedOperationException();
 	}
 
 	public boolean checkAvailability(int tableNumber) {

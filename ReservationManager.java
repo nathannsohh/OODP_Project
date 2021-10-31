@@ -1,9 +1,14 @@
+
 import java.util.ArrayList;
 import java.time.*;
 import java.time.format.*;
+import java.util.Date;
+import java.util.List;
+
 public class ReservationManager {
 
 	private ArrayList<Reservation> reservations;
+
 
 	public ReservationManager(){
 		reservations = new ArrayList<Reservation>();
@@ -29,6 +34,7 @@ public class ReservationManager {
 		if(i == reservations.size()){
 			System.out.println("No such reservation found!");
 		}
+
 	}
 
 	public void removeReservation(Customer customer, LocalDateTime dateTime) {

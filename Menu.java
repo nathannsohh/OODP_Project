@@ -1,20 +1,27 @@
+import java.util.Dictionary;
+
 public class Menu {
 
-	private List<MenuItem> menuitems;
+	private Dictionary<String, MenuItem> menuItems;
 
-	public void createMenuItem() {
+	public void addMenuItem(MenuItem menuItem) {
 		// TODO - implement Menu.createMenuItem
 		throw new UnsupportedOperationException();
 	}
 
-	public void updateMenuItem() {
-		// TODO - implement Menu.updateMenuItem
-		throw new UnsupportedOperationException();
-	}
-
-	public void removeMenuItem() {
+	public void removeMenuItem(MenuItem menuItem) {
 		// TODO - implement Menu.removeMenuItem
 		throw new UnsupportedOperationException();
 	}
-
+	
+	public MenuItem getMenuItem(String menuItemID) {
+		// TODO - implement Menu.removeMenuItem
+		throw new UnsupportedOperationException();
+	}
+	
+	public boolean isValidID(String menuItemID) {
+		// TODO - implement Menu.removeMenuItem
+		throw new UnsupportedOperationException();
+	}
+	
 }

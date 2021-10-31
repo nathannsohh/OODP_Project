@@ -3,6 +3,7 @@ import java.util.function.Supplier;
 public class Staff {
 
 	private String name;
+
 	enum Gender{Male,Female};
 	private String employeeId;
 	enum JobTitle{waiter,cashier,manager};
@@ -10,7 +11,7 @@ public class Staff {
 	public Staff(String name, int gender, String employeeId, JobTitle jobTitle){
 		this.name=name;
 		this.employeeId=employeeId;
-	}
+
 
 	public String getName(){
 		return this.name;

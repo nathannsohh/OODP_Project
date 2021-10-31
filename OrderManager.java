@@ -1,11 +1,14 @@
+
 import java.util.*;
 import java.util.function.Supplier;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+
 public class OrderManager {
 
 	private ArrayList<Order> currentOrders;
 	private ArrayList<Order> completedOrders;
+
 
 	public OrderManager(){
 		currentOrders=new ArrayList<Order>();
@@ -47,4 +50,5 @@ public class OrderManager {
 			}
 		}
 	}
+
 }

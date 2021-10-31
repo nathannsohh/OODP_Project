@@ -2,6 +2,7 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+
 public class Order {
 
 	//private Staff staff;
@@ -13,6 +14,7 @@ public class Order {
 	private int OrderID;
 	private Table table;
 	private Customer customer;
+
 
 	public Order(Staff staff,String datetime,int OrderID,Table table, Customer customer){
 		order=new ArrayList<OrderItem>();
@@ -26,6 +28,7 @@ public class Order {
 	
 	public ArrayList<OrderItem> getOrder(){
 		return this.order;
+
 	}
 	
 	public ArrayList<OrderItem> getOrder(int tableNumber){
@@ -100,6 +103,11 @@ public class Order {
 				System.out.println(order.get(j).getQuantity() + "     " + order.get(j).getMenuItem().getName() + "\n");
 	}
 }
+
+	public void viewOrder() {
+		// TODO - implement OrderManager.viewOrder
+		throw new UnsupportedOperationException();
+	}
 
 	public void printOrderInvoice() {
 		float discount=0;
