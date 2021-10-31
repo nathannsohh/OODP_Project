@@ -33,7 +33,7 @@ public class OrderManager {
 	}
 
 	public void createOrder(Staff staff,String datetime,int OrderID) {
-		Order order= new Order(staff,datetime, OrderID);
+		Order order= new Order(staff, datetime, OrderID);
 		currentOrders.add(order);
 	}
 
