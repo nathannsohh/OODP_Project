@@ -18,7 +18,7 @@ public class ReservationManager {
 	public void createReservation(String dateTime, int pax, Customer customer, int tableNumber) {
 		reservations.add(new Reservation(dateTime, pax, customer, tableNumber));
 	}
-
+	// isvalidDate boolean 
 	public void checkReservation(Customer customer, LocalDateTime dateTime) {
 		int i = 0;
 		for(i = 0; i < reservations.size(); i++){
@@ -38,18 +38,16 @@ public class ReservationManager {
 
 	}
 
-	public void removeReservation(Customer customer, LocalDateTime dateTime) {
+	public boolean removeReservation(Customer customer, LocalDateTime dateTime) {
 		int i = 0;
 		while(i != reservations.size()){
 			if(reservations.get(i).getCustomer() == customer && reservations.get(i).getDatetime() == dateTime){
 				reservations.remove(i);
-				System.out.println("Reservation has been removed.");
-				break;
+				return true;
 			}
 		}
-		if(i == reservations.size()){
-			System.out.println("Removal failed: No such reservation found!");
-		}
+		return false;
+		
 	}
 
 	public boolean checkAvailability(LocalDateTime dateTime, int pax) {
@@ -61,5 +59,5 @@ public class ReservationManager {
 		else return true;
 	}
 
-
+	// deleteInvalidReservations to remove reservations that pass 15mins
 }
