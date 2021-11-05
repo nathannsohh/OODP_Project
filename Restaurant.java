@@ -10,14 +10,55 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.regex.PatternSyntaxException;
 
+/**
+ * Restaurant is the main class used to run the Restaurant Reservation and Point of Sale System (RRPSS)
+ * @author Nicole
+ * @version 1.00
+ * @since 11/05/2021
+ */
 public class Restaurant {
+	/**
+	 * The standard format for a date input, 
+	 * given in 2 digit day of month (dd),
+	 * 2 digit month of year (MM), and
+	 * 4 digit year of era (YYYY). 
+	 * e.g. 10/07/2004
+	 */
 	private static final String dateFormatString = "dd/MM/yyyy"; 
+	/**
+	 * The standard format for a datetime input, 
+	 * given in 2 digit day of month (dd),
+	 * 2 digit month of year (MM), 
+	 * 4 digit year of era (YYYY),
+	 * 2 digit hour of day (0-23) (HH), and
+	 * minute of hour (mm). 
+	 * e.g. 10/07/2004 00:30
+	 */
 	private static final String dateTimeFormatString = "dd/MM/yyyy HH:mm"; 
+	/**
+	 * The dictionary mapping employee ID (key) 
+	 * to staff object (value).
+	 */
 	private Hashtable<String, Staff> staffList; 
+	/**
+	 * The {@link Menu} of this restaurant.
+	 */
 	private Menu menu;
+	/**
+	 * The {@link TableManager} of this restaurant.
+	 */
 	private TableManager tableMgr;
+	/**
+	 * The {@link OrderManager} of this restaurant.
+	 */
 	private OrderManager orderMgr;
+	/**
+	 * The {@link ReservationManager} of this restaurant.
+	 */
 	private ReservationManager resMgr;	
+	/**
+	 * Class constructor.
+	 */
 	public Restaurant() 
 	{
 		// initialise staffList
@@ -32,6 +73,12 @@ public class Restaurant {
 		// initialise reservation manager
 		resMgr = new ReservationManager();
 	}
+	/**
+	 * Class constructor specifying names of files containing data for initalisation.
+	 * @param staffFileName 	relative path to file containing data to initialise staffList
+	 * @param menuFileName 	relative path to file containing data to initialise menu
+	 * @param tableFileName 	relative path to file containing data to initialise tables
+	 */
 	public Restaurant(String staffFileName, String menuFileName, String tableFileName) 
 	{
 		String path = new File("").getAbsolutePath();
@@ -105,6 +152,13 @@ public class Restaurant {
 		// initialise reservation manager
 		resMgr = new ReservationManager();
 	}
+	/**
+	 * Requests user to input customer data (name, contact, membership), 
+	 * validates inputs, 
+	 * creates and returns {@link Customer} object.
+	 * @param sc 	Scanner object to request inputs
+	 * @return newly created customer object
+	 */
 	private Customer inputCustomer(Scanner sc)
 	{
 		Customer customer;
@@ -128,6 +182,13 @@ public class Restaurant {
 			customer = new Customer(custName, custContact, false);
 		return customer;
 	}
+	/**
+	 * Requests user to input date based on {@link Restaurant#DateFormatString} 
+	 * validates inputs, 
+	 * creates and returns {@link LocalDate} object.
+	 * @param sc 	Scanner object to request inputs
+	 * @return newly created LocatDate object
+	 */
 	private LocalDate inputDate(Scanner sc)
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatString);
@@ -148,6 +209,14 @@ public class Restaurant {
 		} while (!valid);
 		return date;
 	}
+	/**
+	 * Requests user to input datetime based on {@link Restaurant#DateTimeFormatString} 
+	 * validates inputs, 
+	 * creates and returns {@link LocalDateTime} object.
+	 * Input time is restricted to hour (e.g. 23:00, not 23:36).
+	 * @param sc 	Scanner object to request inputs
+	 * @return newly created LocatDateTime object
+	 */
 	private LocalDateTime inputDateTime(Scanner sc)
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormatString);
@@ -174,6 +243,17 @@ public class Restaurant {
 		} while (!valid);
 		return dateTime;
 	}
+	/**
+	 * Requests user to input MenuItemID 
+	 * validates input, 
+	 * gets and returns associated {@link MenuItem} object.
+	 * @param sc 			Scanner object to request inputs
+	 * @param isAlaCarte 	<code>true</code> if MenuItemID of {@link AlaCarte} objects should be accepted, 
+	 * 						<code>false</code> otherwise.
+	 * @param isPromo	 	<code>true</code> if MenuItemID of {@link Promotion} objects should be accepted, 
+	 * 						<code>false</code> otherwise.
+	 * @return associated MenuItem object
+	 */
 	private MenuItem inputMenuItem(Scanner sc, boolean isAlaCarte, boolean isPromo)
 	{
 		String menuItemID;
@@ -207,6 +287,13 @@ public class Restaurant {
 		} while (true);
 		return item;
 	}
+	/**
+	 * Requests user to input number of people,
+	 * validates input, and 
+	 * and returns input.
+	 * @param sc 	Scanner object to request inputs
+	 * @return number of people (pax)
+	 */
 	private int inputPax(Scanner sc)
 	{
 		int pax; 
@@ -221,18 +308,43 @@ public class Restaurant {
 		} while (true); 
 		return pax;
 	}
+	/**
+	 * Requests user to input price,
+	 * validates input, and 
+	 * and returns input.
+	 * @param sc 	Scanner object to request inputs
+	 * @return price
+	 */
 	private float inputPrice(Scanner sc)
 	{
 		float price;
+		String[] splitter;
+		int numDecimals;
 		do 
 		{
 			System.out.print("Enter price: ");
 			price = sc.nextFloat();
 			if (price <= 0)
 				System.out.print("Invalid input. Please enter positive value.\n");
-		} while	(price <= 0); 
+			else
+			{
+				splitter = d.toString().split("\\.");
+				numDecimals = splitter[1].length();
+				if (decimalLength == 2)
+					break;
+				else
+					System.out.print("Invalid input. Please enter number with 2 decimal places.\n");
+			}
+		} while	(true); 
 		return price;
 	}
+	/**
+	 * Requests user to input quantity,
+	 * validates input, and 
+	 * and returns input.
+	 * @param sc 	Scanner object to request inputs
+	 * @return quantity 
+	 */
 	private int inputQuantity(Scanner sc)
 	{
 		int quantity;
@@ -247,6 +359,13 @@ public class Restaurant {
 		} while (true);
 		return quantity;
 	}
+	/**
+	 * Requests user to input staff employeeID, 
+	 * validates input, 
+	 * and returns associated {@link Staff} object.
+	 * @param sc 	Scanner object to request inputs
+	 * @return associated Staff object
+	 */
 	private Staff inputStaff(Scanner sc)
 	{
 		String employeeID; 
@@ -263,6 +382,13 @@ public class Restaurant {
 		} while (true);
 		return staff;
 	}
+	/**
+	 * Requests user to input table number,
+	 * validates input, and 
+	 * and returns input.
+	 * @param sc 	Scanner object to request inputs
+	 * @return table number 
+	 */
 	private int inputTableNum(Scanner sc)
 	{
 		int tableNum;
@@ -277,6 +403,13 @@ public class Restaurant {
 		} while (true);
 		return tableNum;
 	}
+	/**
+	 * Requests user to input type of {@link AlaCarte} object,
+	 * validates input, and 
+	 * and returns input.
+	 * @param sc 	Scanner object to request inputs
+	 * @return type 
+	 */
 	private String inputType(Scanner sc)
 	{
 		String type;
@@ -291,6 +424,12 @@ public class Restaurant {
 		} while (true);
 		return type;
 	}
+	/**
+	 * Helper function for {@link Restaurant#runRRPSS}, 
+	 * which displays options to manage {@link AlaCarte} items on the {@link Restaurant#Menu}, 
+	 * and executes the appropriate functions based on user inputs.
+	 * @param sc 	Scanner object to request inputs
+	 */
 	private void alaCarteHelper(Scanner sc) 
 	{
 		AlaCarte alaCarteItem;
@@ -373,6 +512,12 @@ public class Restaurant {
 			}
 		} while (option != 4);
 	}
+	/**
+	 * Helper function for {@link Restaurant#runRRPSS}, 
+	 * which displays options to manage {@link Promotion} items on the {@link Restaurant#menu}, 
+	 * and executes the appropriate functions based on user inputs.
+	 * @param sc 	Scanner object to request inputs
+	 */
 	private void promotionHelper(Scanner sc) 
 	{
 		Promotion promo;
@@ -466,6 +611,12 @@ public class Restaurant {
 			}
 		} while (option != 4);
 	}
+	/**
+	 * Helper function for {@link Restaurant#runRRPSS}, 
+	 * which displays options to manage orders using {@link Restaurant#orderMgr}, 
+	 * and executes the appropriate functions based on user inputs.
+	 * @param sc 	Scanner object to request inputs
+	 */
 	private void orderHelper(Scanner sc) 
 	{
 		int tableNum, quantity;
@@ -525,6 +676,12 @@ public class Restaurant {
 			}
 		} while (option != 5);
 	}
+	/**
+	 * Helper function for {@link Restaurant#runRRPSS}, 
+	 * which displays options to manage reservations using {@link Restaurant#resMgr}, 
+	 * and executes the appropriate functions based on user inputs.
+	 * @param sc 	Scanner object to request inputs
+	 */
 	private void reservationHelper(Scanner sc) 
 	{
 		LocalDateTime dateTime;
@@ -575,6 +732,11 @@ public class Restaurant {
 			};
 		} while (option != 4);
 	}
+	/**
+	 * Function to run Restaurant Reservation and Point of Sale System (RRPSS). 
+	 * Displays main menu options to manage restaurant, 
+	 * and executes the appropriate functions based on user inputs.
+	 */
 	public void runRRPSS() 
 	{
 		Scanner sc = new Scanner(System.in); 
