@@ -268,13 +268,13 @@ public class Restaurant {
 				item = menu.getMenuItem(menuItemID);
 				if (isAlaCarte && !isPromo) // only accept ala carte 
 				{
-					if (item.checkAlaCarte()) 
+					if (item.isAlaCarte()) 
 						break;
 					else
 						System.out.print("Invalid input. Please enter ID of ala carte item.\n");
 				} else if (!isAlaCarte && isPromo) // only accept promo
 				{
-					if (!item.checkAlaCarte()) 
+					if (!item.isAlaCarte()) 
 						break;
 					else
 						System.out.print("Invalid input. Please enter ID of promotion item.\n");
@@ -799,7 +799,7 @@ public class Restaurant {
 					break;
 				case 2:
 					LocalDateTime dateTime = inputDateTime(sc);
-					table = tableMgr.checkFutureAvailability(pax, dateTime);
+					table = tableMgr.checkFutureAvailability(pax, dateTime, resMgr);
 				}
 				if (table != -1)
 					System.out.printf("Table for %d AVAILABLE\n", pax);
