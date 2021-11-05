@@ -1,0 +1,4 @@
+EMP001|Adam Ang|M|Manager
+EMP002|Brenda Brown|F|Chef
+EMP003|Carl Chua|M|Waiter
+EMP004|Delilah Doe|F|Cashier
