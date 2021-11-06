@@ -1,5 +1,5 @@
 enum Type {
-	DRINK, MAIN_COURSE, SIDE;
+	DRINK, MAIN_COURSE, SIDE, DESSERT;
 };
 
 abstract public class MenuItem {

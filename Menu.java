@@ -38,6 +38,8 @@ public class Menu {
 					type = Type.MAIN_COURSE;
 				} else if (temp[4].equals("2")) {
 					type = Type.SIDE;
+				} else if (temp[4].equals("3")) {
+					type = Type.SIDE;
 				} else {
 					type = Type.MAIN_COURSE;
 				}
