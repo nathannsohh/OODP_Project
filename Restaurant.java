@@ -14,8 +14,8 @@ import java.util.regex.PatternSyntaxException;
 /**
  * Restaurant is the main class used to run the Restaurant Reservation and Point of Sale System (RRPSS)
  * @author Nicole
- * @version 1.00
- * @since 11/06/2021
+ * @version 1.0
+ * @since 2021-11-06
  */
 public class Restaurant {
 	/**

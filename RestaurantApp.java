@@ -1,8 +1,8 @@
 /**
  * RestaurantApp is the application class for {@link Restaurant}
  * @author Nicole
- * @version 1.00
- * @since 11/05/2021
+ * @version 1.0
+ * @since 2021-11-06
  */
 public class RestaurantApp {
 	/**
