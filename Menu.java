@@ -78,7 +78,12 @@ public class Menu {
 
 	}
 
-	public void createNewMenuItem() {
+	// TODO fjdskljfdksl
+	// name, desc price, type
+	// split up the creation of promotions
+	// create promotion function paramters(same as alacarte except type)
+	// pass back the promotion object
+	public MenuItem createNewMenuItem() {
 		String temp;
 		Scanner sc = new Scanner(System.in);
 		System.out.println("To create new Menu Item :");
@@ -173,68 +178,70 @@ public class Menu {
 
 	}
 
-	private AlaCarte createAlaCarte() {
-		// String name, String desc, float price, Type type
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter name");
-		String name = sc.nextLine();
-		System.out.println("Enter Description");
-		String desc = sc.nextLine();
-		System.out.println("Enter Price");
-		float price = sc.nextFloat();
-		String temp;
-		System.out.println("Enter 1 for a MAIN COURSE, 2 for SIDE, 3 for DRINK");
-		Type type;
-		while (true) {
-			temp = sc.nextLine();
-			// System.out.print(temp);
-			if (temp == "1") {
-				type = Type.MAIN_COURSE;
-				break;
-			} else if (temp.equals("2")) {
-				type = Type.SIDE;
-				break;
-			} else if (temp.equals("3")) {
-				type = Type.DRINK;
-				break;
-			}
-		}
+	// private AlaCarte createAlaCarte() {
+	// // String name, String desc, float price, Type type
+	// Scanner sc = new Scanner(System.in);
+	// System.out.println("Enter name");
+	// String name = sc.nextLine();
+	// System.out.println("Enter Description");
+	// String desc = sc.nextLine();
+	// System.out.println("Enter Price");
+	// float price = sc.nextFloat();
+	// String temp;
+	// System.out.println("Enter 1 for a MAIN COURSE, 2 for SIDE, 3 for DRINK");
+	// Type type;
+	// while (true) {
+	// temp = sc.nextLine();
+	// // System.out.print(temp);
+	// if (temp == "1") {
+	// type = Type.MAIN_COURSE;
+	// break;
+	// } else if (temp.equals("2")) {
+	// type = Type.SIDE;
+	// break;
+	// } else if (temp.equals("3")) {
+	// type = Type.DRINK;
+	// break;
+	// }
+	// }
 
-		AlaCarte item = new AlaCarte(name, desc, price, type, Integer.toString(alaCarteCounter));
-		alaCarteCounter++;
-		sc.close();
-		return item;
+	// AlaCarte item = new AlaCarte(name, desc, price, type,
+	// Integer.toString(alaCarteCounter));
+	// alaCarteCounter++;
+	// sc.close();
+	// return item;
 
-	}
+	// }
 
-	private Promotion createPromotion() {
-		Scanner sc = new Scanner(System.in);
-		String temp;
-		int n;
-		System.out.println("Enter name");
-		String name = sc.nextLine();
-		System.out.println("Enter Description");
-		String desc = sc.nextLine();
-		System.out.println("Enter Price");
-		float price = sc.nextFloat();
-		Promotion promo = new Promotion(name, desc, price, Integer.toString(promotionCounter + 100));
-		promotionCounter++;
+	// private Promotion createPromotion() {
+	// Scanner sc = new Scanner(System.in);
+	// String temp;
+	// int n;
+	// System.out.println("Enter name");
+	// String name = sc.nextLine();
+	// System.out.println("Enter Description");
+	// String desc = sc.nextLine();
+	// System.out.println("Enter Price");
+	// float price = sc.nextFloat();
+	// Promotion promo = new Promotion(name, desc, price,
+	// Integer.toString(promotionCounter + 100));
+	// promotionCounter++;
 
-		System.out.println("Enter number of items in this promotion: ");
-		n = sc.nextInt();
-		for (int i = 0; i < n; i++) {
-			System.out.println("Enter valid item ID of Ala Carte to add to Promotion!");
-			temp = sc.next();
-			if (isValidID(temp)) {
-				AlaCarte item = (AlaCarte) getMenuItem(temp);
-				promo.addItem(item);
-			}
-		}
-		sc.close();
-		return promo;
-	}
+	// System.out.println("Enter number of items in this promotion: ");
+	// n = sc.nextInt();
+	// for (int i = 0; i < n; i++) {
+	// System.out.println("Enter valid item ID of Ala Carte to add to Promotion!");
+	// temp = sc.next();
+	// if (isValidID(temp)) {
+	// AlaCarte item = (AlaCarte) getMenuItem(temp);
+	// promo.addItem(item);
+	// }
+	// }
+	// sc.close();
+	// return promo;
+	// }
 
-	private void printAlaCartes() {
+	public void printAlaCartes() {
 		AlaCarte temp;
 		System.out.println("ID          NAME    PRICE");
 		for (int i = 0; i < alaCarteItems.size(); i++) {
@@ -272,14 +279,22 @@ public class Menu {
 			Promotion temp = (Promotion) promotionItems.get(i);
 			System.out.printf("%-3s %-30s %.2f\n", temp.getId(), temp.getName(), temp.getPrice());
 		}
+	}
+
+	public void displayPromotion() {
+		for (int i = 0; i < promotionItems.size(); i++) {
+			Promotion temp = (Promotion) promotionItems.get(i);
+			System.out.printf("%-3s %-30s %.2f\n", temp.getId(), temp.getName(), temp.getPrice());
+		}
 
 	}
 
 	public static void main(String[] args) {
-		Menu m = new Menu();
-		m.displayMenu();
-		m.removeMenuItem("6");
-		m.displayMenu();
+		// Menu m = new Menu();
+		// m.displayMenu();
+		// m.createNewMenuItem();
+		// // m.removeMenuItem("6");
+		// m.displayMenu();
 		// m.createNewMenuItem();
 		// // System.out.println("\n");
 
