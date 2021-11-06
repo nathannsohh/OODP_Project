@@ -38,6 +38,8 @@ public class Menu {
 					type = Type.MAIN_COURSE;
 				} else if (temp[4].equals("2")) {
 					type = Type.SIDE;
+				} else if (temp[4].equals("3")) {
+					type = Type.SIDE;
 				} else {
 					type = Type.MAIN_COURSE;
 				}
@@ -73,40 +75,6 @@ public class Menu {
 			e.printStackTrace();
 		}
 
-		// construction of menu will read data off files!
-		// read
-
-	}
-
-	// TODO fjdskljfdksl
-	// name, desc price, type
-	// split up the creation of promotions
-	// create promotion function paramters(same as alacarte except type)
-	// pass back the promotion object
-	public MenuItem createNewMenuItem() {
-		String temp;
-		Scanner sc = new Scanner(System.in);
-		System.out.println("To create new Menu Item :");
-		System.out.println("Enter (1) Promotion Item");
-		System.out.println("Enter (2) AlaCarte Item");
-		while (true) {
-			temp = sc.next();
-			if (temp.equals("1")) {
-				Promotion newPromo = createPromotion();
-				promotionItems.add(newPromo);
-				// numberOfPromotions++;
-				break;
-
-			} else if (temp.equals("2")) {
-				AlaCarte item = createAlaCarte();
-				alaCarteItems.add(item);
-				// numberOfAlaCartes++;
-				break;
-			}
-		}
-		sc.close();
-		return;
-
 	}
 
 	public void removeMenuItem(String menuItemId) {
@@ -114,8 +82,6 @@ public class Menu {
 		int menuItemId_integer = Integer.parseInt(menuItemId);
 		if (menuItemId_integer < 100) {
 
-			// search thru promo list
-			// need to check this item exisit in any promotion set
 			for (int i = 0; i < promotionItems.size(); i++) {
 				Promotion promoSet = (Promotion) promotionItems.get(i);
 				ArrayList<String> temp = promoSet.findElements();
@@ -126,8 +92,6 @@ public class Menu {
 					}
 				}
 			}
-
-			// search thru alacarte list
 			for (int i = 0; i < alaCarteItems.size(); i++) {
 				if (alaCarteItems.get(i).getId().equals(menuItemId))
 					found = i;
@@ -178,68 +142,19 @@ public class Menu {
 
 	}
 
-	// private AlaCarte createAlaCarte() {
-	// // String name, String desc, float price, Type type
-	// Scanner sc = new Scanner(System.in);
-	// System.out.println("Enter name");
-	// String name = sc.nextLine();
-	// System.out.println("Enter Description");
-	// String desc = sc.nextLine();
-	// System.out.println("Enter Price");
-	// float price = sc.nextFloat();
-	// String temp;
-	// System.out.println("Enter 1 for a MAIN COURSE, 2 for SIDE, 3 for DRINK");
-	// Type type;
-	// while (true) {
-	// temp = sc.nextLine();
-	// // System.out.print(temp);
-	// if (temp == "1") {
-	// type = Type.MAIN_COURSE;
-	// break;
-	// } else if (temp.equals("2")) {
-	// type = Type.SIDE;
-	// break;
-	// } else if (temp.equals("3")) {
-	// type = Type.DRINK;
-	// break;
-	// }
-	// }
+	public AlaCarte createAlaCarte(String name, String desc, Float price, Type type) {
+		// String name, String desc, float price, Type type
+		AlaCarte item = new AlaCarte(name, desc, price, type, Integer.toString(alaCarteCounter));
+		alaCarteCounter++;
+		return item;
 
-	// AlaCarte item = new AlaCarte(name, desc, price, type,
-	// Integer.toString(alaCarteCounter));
-	// alaCarteCounter++;
-	// sc.close();
-	// return item;
+	}
 
-	// }
-
-	// private Promotion createPromotion() {
-	// Scanner sc = new Scanner(System.in);
-	// String temp;
-	// int n;
-	// System.out.println("Enter name");
-	// String name = sc.nextLine();
-	// System.out.println("Enter Description");
-	// String desc = sc.nextLine();
-	// System.out.println("Enter Price");
-	// float price = sc.nextFloat();
-	// Promotion promo = new Promotion(name, desc, price,
-	// Integer.toString(promotionCounter + 100));
-	// promotionCounter++;
-
-	// System.out.println("Enter number of items in this promotion: ");
-	// n = sc.nextInt();
-	// for (int i = 0; i < n; i++) {
-	// System.out.println("Enter valid item ID of Ala Carte to add to Promotion!");
-	// temp = sc.next();
-	// if (isValidID(temp)) {
-	// AlaCarte item = (AlaCarte) getMenuItem(temp);
-	// promo.addItem(item);
-	// }
-	// }
-	// sc.close();
-	// return promo;
-	// }
+	public Promotion createPromotion(String name, String desc, Float price) {
+		Promotion promo = new Promotion(name, desc, price, Integer.toString(promotionCounter + 100));
+		promotionCounter++;
+		return promo;
+	}
 
 	public void printAlaCartes() {
 		AlaCarte temp;
