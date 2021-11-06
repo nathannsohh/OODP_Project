@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.*;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +15,7 @@ import java.util.regex.PatternSyntaxException;
  * Restaurant is the main class used to run the Restaurant Reservation and Point of Sale System (RRPSS)
  * @author Nicole
  * @version 1.00
- * @since 11/05/2021
+ * @since 11/06/2021
  */
 public class Restaurant {
 	/**
@@ -36,10 +37,9 @@ public class Restaurant {
 	 */
 	private static final String dateTimeFormatString = "dd/MM/yyyy HH:mm"; 
 	/**
-	 * The dictionary mapping employee ID (key) 
-	 * to staff object (value).
+	 * The list of {@link Staff} employed by the restaurant.
 	 */
-	private Hashtable<String, Staff> staffList; 
+	private ArrayList<Staff> staffList; 
 	/**
 	 * The {@link Menu} of this restaurant.
 	 */
@@ -57,49 +57,26 @@ public class Restaurant {
 	 */
 	private ReservationManager resMgr;	
 	/**
-	 * Class constructor.
+	 * Class constructor. Initialises staffList, menu, and tableMgr with test data.
 	 */
 	public Restaurant() 
 	{
 		// initialise staffList
-		staffList = new Hashtable<String, Staff>();
-		// initialise menu
-		//// how to create promotional package ??
-		menu = new Menu();
-		// initialise tables
-		tableMgr = new TableManager();
-		// initialise order manager
-		orderMgr = new OrderManager();
-		// initialise reservation manager
-		resMgr = new ReservationManager();
-	}
-	/**
-	 * Class constructor specifying names of files containing data for initalisation.
-	 * @param staffFileName 	relative path to file containing data to initialise staffList
-	 * @param menuFileName 	relative path to file containing data to initialise menu
-	 * @param tableFileName 	relative path to file containing data to initialise tables
-	 */
-	public Restaurant(String staffFileName, String menuFileName, String tableFileName) 
-	{
 		String path = new File("").getAbsolutePath();
-		String fileName;
-		File file;
-		BufferedReader br;
-        String line, data[];
-		// initialise staffList
-		staffList = new Hashtable<String, Staff>();
-		fileName = path + staffFileName;
+		String fileName = path + "/staffData.txt";
 		System.out.printf("Reading staff data from %s ...\n", fileName);
-	    file = new File(fileName);
+		File file = new File(fileName);
+		BufferedReader br;
+        String line, data[];		
 		Staff staff;
 		try {
 			br = new BufferedReader(new FileReader(file));
 			while ((line = br.readLine()) != null)
 			{
 				data = line.split("\\|");
-				// ID|name|gender|job
-				staff = new Staff(data[1], data[2], data[3]);
-				staffList.put(data[0], staff);
+				// name|gender|emp|job 
+				staff = new Staff(data[0], Gender[Integer.valueOf(data[1])], data[2], JobTitle[Integer.valueOf(data[3])]);
+				staffList.add(staff);
 			}
 		} catch (FileNotFoundException e) {
 			System.out.printf("ERROR: FileNotFoundException for %s\n", fileName);
@@ -107,46 +84,9 @@ public class Restaurant {
 			System.out.printf("ERROR: IOException while reading %s\n", fileName);
 		}
 		// initialise menu
-		//// how to create promotional package ??
 		menu = new Menu();
-		fileName = path + menuFileName;
-		System.out.printf("Reading menu data from %s ...\n", fileName);
-	    file = new File(fileName);
-		AlaCarte item;
-		try {
-			br = new BufferedReader(new FileReader(file));
-			while ((line = br.readLine()) != null)
-			{
-				data = line.split("\\|");
-				// name|desc|price|type
-				item = new AlaCarte(data[0], data[1], data[2], data[3]);
-				menu.addMenuItem(item);
-			}
-		} catch (FileNotFoundException e) {
-			System.out.printf("ERROR: FileNotFoundException for %s\n", fileName);
-		} catch (IOException e) {
-			System.out.printf("ERROR: IOException while reading %s\n", fileName);
-		}
 		// initialise tables
 		tableMgr = new TableManager();
-		fileName = path + tableFileName;
-		System.out.printf("Reading table data from %s ...\n", fileName);
-	    file = new File(fileName);
-		Table table;
-		int tableNum = 1;
-		try {
-			br = new BufferedReader(new FileReader(file));
-			while ((line = br.readLine()) != null)
-			{
-				// capacity
-				table = new Table(tableNum++, line, true);
-				tableMgr.addTable(table); //// how to pass tables to tableMgr?
-			}
-		} catch (FileNotFoundException e) {
-			System.out.printf("ERROR: FileNotFoundException for %s\n", fileName);
-		} catch (IOException e) {
-			System.out.printf("ERROR: IOException while reading %s\n", fileName);
-		}
 		// initialise order manager
 		orderMgr = new OrderManager();
 		// initialise reservation manager
@@ -239,7 +179,7 @@ public class Restaurant {
 				valid = false;
 			}
 			if (valid)
-				valid = resMgr.isValidDate(dateTimeString);
+				valid = resMgr.isValidDate(dateTime);
 		} while (!valid);
 		return dateTime;
 	}
@@ -260,7 +200,9 @@ public class Restaurant {
 		MenuItem item;
 		do
 		{
-			menu.displayMenu(); //// check inputs 
+			if (isAlaCarte && isPromo) menu.displayMenu(); 
+			else if (isAlaCarte) menu.displayAlaCarte();
+			else if (isPromo) menu.displayPromotion();
 			System.out.print("Enter menu item ID: ");
 			menuItemID = sc.next(); 
 			if (menu.isValidID(menuItemID))
@@ -360,6 +302,19 @@ public class Restaurant {
 		return quantity;
 	}
 	/**
+	 * Finds and returns associated Staff object from staffList based on employee ID.
+	 * @param employeeID 	employee ID to identify staff
+	 * @return associated Staff object
+	 */
+	private Staff getStaff(String employeeID)
+	{
+		for (Staff staff : staffList)
+		{
+			if (staff.getEmployeeID() == employeeID)
+				return staff;
+		}
+		return null;
+	}/**
 	 * Requests user to input staff employeeID, 
 	 * validates input, 
 	 * and returns associated {@link Staff} object.
@@ -374,7 +329,7 @@ public class Restaurant {
 		{
 			System.out.printf("Enter employee ID: ");
 			employeeID = sc.next();
-			staff = staffList.get(employeeID);
+			staff = getStaff(employeeID);
 			if (staff != null)
 				break;
 			else // id not found in dictionary
@@ -404,25 +359,28 @@ public class Restaurant {
 		return tableNum;
 	}
 	/**
-	 * Requests user to input type of {@link AlaCarte} object,
+	 * Requests user to input {@link Type} of {@link AlaCarte} object,
 	 * validates input, and 
 	 * and returns input.
 	 * @param sc 	Scanner object to request inputs
 	 * @return type 
 	 */
-	private String inputType(Scanner sc)
+	private Type inputType(Scanner sc)
 	{
-		String type;
+		int num;
 		do
 		{
-			System.out.printf("Enter ala carte item type: ");
-			type = sc.next();
-			if (AlaCarte.isValidType(type))
+			System.out.print("1) DRINK\n" +
+							"2) MAIN_COURSE\n" +
+							"3) SIDE\n");
+			System.out.print("Enter number to indicate type:");
+			num = sc.nextInt();
+			if (num == 1 || num == 2 || num == 3)
 				break;
 			else
-				System.out.print("Invalid input. Please enter valid type.\n");
+				System.out.print("Invalid input. Please enter 1-3 to select valid type.\n");
 		} while (true);
-		return type;
+		return Type[num-1];
 	}
 	/**
 	 * Helper function for {@link Restaurant#runRRPSS}, 
@@ -451,9 +409,8 @@ public class Restaurant {
 				System.out.print("Enter description: ");
 				String desc = sc.nextLine();
 				float price = inputPrice(sc);
-				String type = inputType(sc);				
-				alaCarteItem = new AlaCarte(name, desc, price, type);
-				menu.addMenuItem(alaCarteItem);
+				Type type = inputType(sc);				
+				menu.addAlaCarteItem(name, desc, price, type);
 				break;
 			case 2:
 				// update
@@ -490,7 +447,7 @@ public class Restaurant {
 				case 4:
 					// type
 					System.out.printf("Current type: %d\n", alaCarteItem.getType());
-					String itemType = inputType(sc);
+					Type itemType = inputType(sc);
 					alaCarteItem.setType(itemType);
 					break;
 				default:
@@ -540,7 +497,7 @@ public class Restaurant {
 				System.out.print("Enter description: ");
 				String desc = sc.nextLine();
 				float price = inputPrice(sc);
-				promo = new Promotion(name, desc, price);
+				promo = menu.addMenuItem(name, desc, price);
 				System.out.printf("Enter number of ala carte items in promotional package: ");
 				int numItems = sc.nextInt(); 
 				AlaCarte alaCarteItem;
@@ -549,7 +506,6 @@ public class Restaurant {
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false); 
 					promo.addItem(alaCarteItem);
 				}
-				menu.addMenuItem(promo);
 				break;
 			case 2:
 				// update
@@ -744,7 +700,7 @@ public class Restaurant {
 		do {
 			// update reservations
 			resMgr.deleteInvalidReservations(tableMgr);
-			resMgr.setReservedTablesOccupied(tableMgr);
+			tableMgr.setReservedTablesOccupied(resMgr);
 
 			// main menu and options
 			System.out.print("====== RRPSS main menu ======\n");

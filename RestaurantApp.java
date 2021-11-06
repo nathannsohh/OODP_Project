@@ -4,14 +4,14 @@
  * @version 1.00
  * @since 11/05/2021
  */
-public class RRPSSapp {
+public class RestaurantApp {
 	/**
-	 * Creates a Restaurant using test data, 
+	 * Creates a {@link Restaurant} using test data, 
 	 * and calls {@link Restaurant#runRRPSS}.
 	 */
 	public static void main(String[] args) 
 	{
-		Restaurant r = new Restaurant("/staffData.txt", "/menuData.txt", "/tableData.txt");
+		Restaurant r = new Restaurant();
 		r.runRRPSS();
 	}
 }

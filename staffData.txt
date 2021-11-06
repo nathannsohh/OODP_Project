@@ -1,4 +1,4 @@
-EMP001|Adam Ang|M|manager
-EMP002|Brenda Brown|F|waiter
-EMP003|Carl Chua|M|waiter
-EMP004|Delilah Doe|F|cashier
+Adam Ang|0|EMP001|2
+Brenda Brown|1|EMP002|0
+Carl Chua|0|EMP003|0
+Delilah Doe|1|EMP004|1
