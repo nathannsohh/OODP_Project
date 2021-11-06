@@ -6,23 +6,23 @@ import java.time.format.DateTimeFormatter;
 public class Order {
 
 	private Staff staff;
-	private ArrayList<OrderItem> order;
-	private Date datetime;
+	private ArrayList<OrderItem> orderItems;
+	private LocalDateTime datetime;
 	private float subtotal;
 	private float priceBefGST;
 	private int tableNumber;
 	private Customer customer;
 
 
-	public Order(Staff staff,Date datetime,int tableNumber, Customer customer){
-		order=new ArrayList<OrderItem>();
+	public Order(Staff staff,LocalDateTime datetime,int tableNumber, Customer customer){
+		orderItems=new ArrayList<OrderItem>();
 		this.staff=staff;
 		this.datetime = datetime;
 		this.tableNumber=tableNumber;
 		this.customer=customer;
 	}
 	
-	public Date getDatetime(){
+	public LocalDateTime getDatetime(){
 		return this.datetime;
 	}
 	
@@ -35,28 +35,28 @@ public class Order {
 	}
 
 	public ArrayList<OrderItem> getOrder(){
-		return this.order;
+		return this.orderItems;
 	}
 	
-	public void addItem(MenuItem itemname,int quantity) {
-		OrderItem orderitem=new OrderItem(itemname,quantity);
-		order.add(orderitem);
+	public void addItem(MenuItem item,int quantity) {
+		OrderItem orderitem=new OrderItem(item,quantity);
+		orderItems.add(orderitem);
 	}
 
-	public void removeItem(MenuItem itemname,int quantity) { 
-		for(int i = 0; i < order.size(); i++){
-			if(order.get(i).getMenuItem()==itemname){
-				if( (order.get(i).getQuantity()-quantity) < 0 ){
+	public void removeItem(MenuItem item,int quantity) { 
+		for(int i = 0; i < orderItems.size(); i++){
+			if(orderItems.get(i).getMenuItem()==item){
+				if( (orderItems.get(i).getQuantity()-quantity) < 0 ){
 					System.out.println("Insufficient quantity to remove!");
 				}
 				else{
-					if(order.get(i).getQuantity()-quantity==0){
-						order.remove(i);
-						System.out.println(quantity + " " + itemname +" removed!");
+					if(orderItems.get(i).getQuantity()-quantity==0){
+						orderItems.remove(i);
+						System.out.println(quantity + " " + item.getName() +" removed!");
 					}
 					else{
-						order.get(i).setQuantity(order.get(i).getQuantity()-quantity);
-						System.out.println(quantity + " " + itemname +" removed!");
+						orderItems.get(i).setQuantity(orderItems.get(i).getQuantity()-quantity);
+						System.out.println(quantity + " " + item.getName() +" removed!");
 					}
 				}
 			}
@@ -69,8 +69,8 @@ public class Order {
 	
 	public void viewOrder() {
 		System.out.println("Quantity         Items");
-		for(int j=0;j<order.size();j++){
-				System.out.println(order.get(j).getQuantity() + "     " + order.get(j).getMenuItem().getName() + "\n");
+		for(int j=0;j<orderItems.size();j++){
+				System.out.println(orderItems.get(j).getQuantity() + "     " + orderItems.get(j).getMenuItem().getName() + "\n");
 		}
 	}
 
@@ -85,9 +85,9 @@ public class Order {
 		System.out.println("Served by: "+ staff.getName());
 		System.out.println("_______________________________________________________");
 		System.out.println("Quantity      Item                            Price");
-		for(int i=0;i<order.size();i++){
-			System.out.println(order.get(i).getQuantity()+ order.get(i).getMenuItem().getName() +"     "+ order.get(i).getMenuItem().getPrice()*order.get(i).getQuantity() + "\n");
-			subtotal+= order.get(i).getMenuItem().getPrice()*order.get(i).getQuantity();
+		for(int i=0;i<orderItems.size();i++){
+			System.out.println(orderItems.get(i).getQuantity()+ orderItems.get(i).getMenuItem().getName() +"     "+ orderItems.get(i).getMenuItem().getPrice()*order.get(i).getQuantity() + "\n");
+			subtotal+= orderItems.get(i).getMenuItem().getPrice()*orderItems.get(i).getQuantity();
 		}
 		System.out.println("_______________________________________________________");
 		System.out.printf("                                      Subtotal: %.2f\n" + subtotal);
