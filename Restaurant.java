@@ -37,23 +37,23 @@ public class Restaurant {
 	 */
 	private static final String dateTimeFormatString = "dd/MM/yyyy HH:mm"; 
 	/**
-	 * The list of {@link Staff} employed by the restaurant.
+	 * The list of Staff employed by the restaurant.
 	 */
 	private ArrayList<Staff> staffList; 
 	/**
-	 * The {@link Menu} of this restaurant.
+	 * The Menu of this restaurant.
 	 */
 	private Menu menu;
 	/**
-	 * The {@link TableManager} of this restaurant.
+	 * The TableManager of this restaurant.
 	 */
 	private TableManager tableMgr;
 	/**
-	 * The {@link OrderManager} of this restaurant.
+	 * The OrderManager of this restaurant.
 	 */
 	private OrderManager orderMgr;
 	/**
-	 * The {@link ReservationManager} of this restaurant.
+	 * The ReservationManager of this restaurant.
 	 */
 	private ReservationManager resMgr;	
 	/**
@@ -95,7 +95,7 @@ public class Restaurant {
 	/**
 	 * Requests user to input customer data (name, contact, membership), 
 	 * validates inputs, 
-	 * creates and returns {@link Customer} object.
+	 * creates and returns Customer object.
 	 * @param sc 	Scanner object to request inputs
 	 * @return newly created customer object
 	 */
@@ -123,9 +123,9 @@ public class Restaurant {
 		return customer;
 	}
 	/**
-	 * Requests user to input date based on {@link Restaurant#DateFormatString} 
+	 * Requests user to input date based on DateFormatString
 	 * validates inputs, 
-	 * creates and returns {@link LocalDate} object.
+	 * creates and returns LocalDate object.
 	 * @param sc 	Scanner object to request inputs
 	 * @return newly created LocatDate object
 	 */
@@ -150,9 +150,9 @@ public class Restaurant {
 		return date;
 	}
 	/**
-	 * Requests user to input datetime based on {@link Restaurant#DateTimeFormatString} 
+	 * Requests user to input datetime based on DateTimeFormatString 
 	 * validates inputs, 
-	 * creates and returns {@link LocalDateTime} object.
+	 * creates and returns LocalDateTime object.
 	 * Input time is restricted to hour (e.g. 23:00, not 23:36).
 	 * @param sc 	Scanner object to request inputs
 	 * @return newly created LocatDateTime object
@@ -186,11 +186,11 @@ public class Restaurant {
 	/**
 	 * Requests user to input MenuItemID 
 	 * validates input, 
-	 * gets and returns associated {@link MenuItem} object.
+	 * gets and returns associated MenuItem object.
 	 * @param sc 			Scanner object to request inputs
-	 * @param isAlaCarte 	<code>true</code> if MenuItemID of {@link AlaCarte} objects should be accepted, 
+	 * @param isAlaCarte 	<code>true</code> if MenuItemID of AlaCarte objects should be accepted, 
 	 * 						<code>false</code> otherwise.
-	 * @param isPromo	 	<code>true</code> if MenuItemID of {@link Promotion} objects should be accepted, 
+	 * @param isPromo	 	<code>true</code> if MenuItemID of Promotion objects should be accepted, 
 	 * 						<code>false</code> otherwise.
 	 * @return associated MenuItem object
 	 */
@@ -314,10 +314,11 @@ public class Restaurant {
 				return staff;
 		}
 		return null;
-	}/**
-	 * Requests user to input staff employeeID, 
-	 * validates input, 
-	 * and returns associated {@link Staff} object.
+	}
+	/**
+	 * Requests user to input an employee ID,
+	 * validates input, and 
+	 * and returns the associated Staff object.
 	 * @param sc 	Scanner object to request inputs
 	 * @return associated Staff object
 	 */
@@ -359,7 +360,7 @@ public class Restaurant {
 		return tableNum;
 	}
 	/**
-	 * Requests user to input {@link Type} of {@link AlaCarte} object,
+	 * Requests user to input Type of AlaCarte object,
 	 * validates input, and 
 	 * and returns input.
 	 * @param sc 	Scanner object to request inputs
@@ -383,8 +384,8 @@ public class Restaurant {
 		return Type[num-1];
 	}
 	/**
-	 * Helper function for {@link Restaurant#runRRPSS}, 
-	 * which displays options to manage {@link AlaCarte} items on the {@link Restaurant#Menu}, 
+	 * Helper function for runRRPSS(), 
+	 * which displays options to manage AlaCarte items on the Menu, 
 	 * and executes the appropriate functions based on user inputs.
 	 * @param sc 	Scanner object to request inputs
 	 */
@@ -470,8 +471,8 @@ public class Restaurant {
 		} while (option != 4);
 	}
 	/**
-	 * Helper function for {@link Restaurant#runRRPSS}, 
-	 * which displays options to manage {@link Promotion} items on the {@link Restaurant#menu}, 
+	 * Helper function for runRRPSS(), 
+	 * which displays options to manage Promotion items on the Menu, 
 	 * and executes the appropriate functions based on user inputs.
 	 * @param sc 	Scanner object to request inputs
 	 */
@@ -568,8 +569,8 @@ public class Restaurant {
 		} while (option != 4);
 	}
 	/**
-	 * Helper function for {@link Restaurant#runRRPSS}, 
-	 * which displays options to manage orders using {@link Restaurant#orderMgr}, 
+	 * Helper function for runRRPSS(), 
+	 * which displays options to manage orders using OrderManager, 
 	 * and executes the appropriate functions based on user inputs.
 	 * @param sc 	Scanner object to request inputs
 	 */
@@ -633,8 +634,8 @@ public class Restaurant {
 		} while (option != 5);
 	}
 	/**
-	 * Helper function for {@link Restaurant#runRRPSS}, 
-	 * which displays options to manage reservations using {@link Restaurant#resMgr}, 
+	 * Helper function for runRRPSS(), 
+	 * which displays options to manage reservations using ReservationManager, 
 	 * and executes the appropriate functions based on user inputs.
 	 * @param sc 	Scanner object to request inputs
 	 */
