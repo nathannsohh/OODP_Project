@@ -108,6 +108,20 @@ public class Menu {
 		int found = -1;
 		int menuItemId_integer = Integer.parseInt(menuItemId);
 		if (menuItemId_integer < 100) {
+
+			// search thru promo list
+			// need to check this item exisit in any promotion set
+			for (int i = 0; i < promotionItems.size(); i++) {
+				Promotion promoSet = (Promotion) promotionItems.get(i);
+				ArrayList<String> temp = promoSet.findElements();
+				for (int j = 0; j < temp.size(); j++) {
+					if (temp.contains(menuItemId)) {
+						System.out.println("This item Exist in a Promotion!\nPlease remove the Promotion first");
+						return;
+					}
+				}
+			}
+
 			// search thru alacarte list
 			for (int i = 0; i < alaCarteItems.size(); i++) {
 				if (alaCarteItems.get(i).getId().equals(menuItemId))
@@ -115,10 +129,11 @@ public class Menu {
 			}
 			if (found != -1) {
 				alaCarteItems.remove(found);
+				System.out.println("Removed Successful");
 			}
 
 		} else {
-			// search thru promo list
+
 			for (int i = 0; i < promotionItems.size(); i++) {
 				if (promotionItems.get(i).getId() == menuItemId) {
 					found = i;
@@ -126,6 +141,7 @@ public class Menu {
 			}
 			if (found != -1) {
 				promotionItems.remove(found);
+				System.out.println("Remove is Successful");
 			}
 		}
 	};
@@ -260,9 +276,10 @@ public class Menu {
 	}
 
 	public static void main(String[] args) {
-		// Menu m = new Menu();
-		// // m.displayMenu();
-
+		Menu m = new Menu();
+		m.displayMenu();
+		m.removeMenuItem("6");
+		m.displayMenu();
 		// m.createNewMenuItem();
 		// // System.out.println("\n");
 

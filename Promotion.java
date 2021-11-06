@@ -27,6 +27,14 @@ public class Promotion extends MenuItem {
 		}
 	}
 
+	public ArrayList<String> findElements() {
+		ArrayList<String> temp = new ArrayList<String>();
+		for (int i = 0; i < items.size(); i++) {
+			temp.add(items.get(i).getId());
+		}
+		return temp;
+	}
+
 	@Override
 	public void checkAlacarte() {
 		System.out.println("Package");
