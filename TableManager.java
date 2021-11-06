@@ -16,7 +16,7 @@ public class TableManager {
 		try {
 			Scanner sc = new Scanner(file);
 			int i = 0;
-				while (sc.hasNextInt())
+				while (sc.hasNextLine())
 				{
 					tables[i] = new Table(i+1, sc.nextInt(), true);
 					i++;
@@ -37,7 +37,7 @@ public class TableManager {
 		ArrayList<Reservation> reservationList = manager.getReservationList();
 		ArrayList<Integer> tableNumList = new ArrayList<Integer>();
 		for(int i = 0; i < reservationList.size(); i++){
-			if(reservationList.get(i).getDatetime() == datetime) {
+			if(reservationList.get(i).getDatetime().isEqual(datetime)) {
 				tableNumList.add(reservationList.get(i).getTableNumber());  // get list of tables that are reserved at datetime
 			}
 		}

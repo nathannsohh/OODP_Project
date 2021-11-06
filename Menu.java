@@ -156,7 +156,7 @@ public class Menu {
 		return promo;
 	}
 
-	public void printAlaCartes() {
+	public void displayAlaCarte() {
 		AlaCarte temp;
 		System.out.println("ID          NAME    PRICE");
 		for (int i = 0; i < alaCarteItems.size(); i++) {
@@ -189,7 +189,7 @@ public class Menu {
 	}
 
 	public void displayMenu() {
-		printAlaCartes();
+		displayAlaCarte();
 		for (int i = 0; i < promotionItems.size(); i++) {
 			Promotion temp = (Promotion) promotionItems.get(i);
 			System.out.printf("%-3s %-30s %.2f\n", temp.getId(), temp.getName(), temp.getPrice());
