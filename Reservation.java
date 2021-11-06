@@ -1,5 +1,4 @@
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 
 public class Reservation {
 
@@ -8,9 +7,8 @@ public class Reservation {
 	private Customer customer;
 	private int tableNumber;
 	
-	public Reservation(String dateTime, int pax, Customer customer, int tableNumber){
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		this.datetime = LocalDateTime.parse(dateTime, formatter);
+	public Reservation(LocalDateTime dateTime, int pax, Customer customer, int tableNumber){
+		this.datetime = dateTime;
 		this.pax = pax;
 		this.customer = customer;
 		this.tableNumber = tableNumber;
@@ -28,9 +26,8 @@ public class Reservation {
 	public int getTableNumber() {
 		return tableNumber;
 	}
-	public void setDatetime(String datetime) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		this.datetime = LocalDateTime.parse(datetime, formatter);
+	public void setDatetime(LocalDateTime datetime) {
+		this.datetime = datetime;
 	}
 	public void setPax(int pax) {
 		this.pax = pax;

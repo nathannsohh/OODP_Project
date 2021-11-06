@@ -15,13 +15,12 @@ public class ReservationManager {
 		return reservations;
 	}
 
-	public void createReservation(String dateTime, int pax, Customer customer, int tableNumber) {
+	public void createReservation(LocalDateTime dateTime, int pax, Customer customer, int tableNumber) {
 		reservations.add(new Reservation(dateTime, pax, customer, tableNumber));
 	}
 	
-	public boolean isvalidDate(String datetime){
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		LocalDateTime date = LocalDateTime.parse(datetime, formatter);
+	public boolean isvalidDate(LocalDateTime datetime){
+		LocalDateTime date = datetime;
 		int hour = date.getHour();
 		if(date.isAfter(LocalDateTime.now().plusDays(14))){
 			System.out.println("Error: You can only reserve a table at most 14 days in advance.");
@@ -34,10 +33,10 @@ public class ReservationManager {
 		else return true;
 	}
 
-	public void checkReservation(Customer customer, LocalDateTime dateTime) {
+	public void checkReservation(String customer, LocalDateTime dateTime) { 
 		int i = 0;
 		for(i = 0; i < reservations.size(); i++){
-			if(reservations.get(i).getCustomer() == customer && reservations.get(i).getDatetime() == dateTime){
+			if(reservations.get(i).getCustomer().getName() == customer && reservations.get(i).getDatetime() == dateTime){
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 				System.out.println("Reservation Details:");
 				System.out.println("Reservation Name: " + reservations.get(i).getCustomer().getName());
@@ -76,10 +75,5 @@ public class ReservationManager {
 		}
 	}
 
-	public void setReservedTablesOccupied(TableManager manager) {
-		for(int i = 0; i < reservations.size(); i++){
-			if(LocalDateTime.now().isAfter(reservations.get(i).getDatetime()) && LocalDateTime.now().isBefore(reservations.get(i).getDatetime().plusMinutes(15)))
-				manager.setTableAvailability(reservations.get(i).getTableNumber(), false);
-		}
-	}
+	
 }
