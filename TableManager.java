@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.time.*;
+import java.io.File;
+import java.util.*;
+import java.io.FileNotFoundException;
 
 public class TableManager {
 
@@ -7,13 +10,22 @@ public class TableManager {
 	
 	public TableManager(){ //use txt file to get tables
 		tables = new Table[10];
-		for(int i = 0; i < 10; i++){
-			if(i==0||i==1) tables[i] = new Table(i+1, 2, true);
-			else if(i==2||i==3) tables[i] = new Table(i+1, 4, true);
-			else if(i==4||i==5) tables[i] = new Table(i+1, 6, true);
-			else if(i==6||i==7) tables[i] = new Table(i+1, 8, true);
-			else if(i==8||i==9) tables[i] = new Table(i+1, 10, true);
+		String path = new File("").getAbsolutePath();
+		String fileName = "\\tableData.txt";
+		File file = new File(path + fileName);
+		try {
+			Scanner sc = new Scanner(file);
+			int i = 0;
+				while (sc.hasNextInt())
+				{
+					tables[i] = new Table(i+1, sc.nextInt(), true);
+					i++;
+				}
+				sc.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
+		
 	}
 
 	public Table[] getTables(){
@@ -54,4 +66,12 @@ public class TableManager {
 	public void setTableAvailability(int tableNumber, boolean avail){
 		tables[tableNumber-1].setAvailable(avail);
 	}
+
+	public void setReservedTablesOccupied(ReservationManager manager) { 
+		for(int i = 0; i < manager.getReservationList().size(); i++){
+			if(LocalDateTime.now().isAfter(manager.getReservationList().get(i).getDatetime()) && LocalDateTime.now().isBefore(manager.getReservationList().get(i).getDatetime().plusMinutes(15)))
+				setTableAvailability(manager.getReservationList().get(i).getTableNumber(), false);
+		}
+	}
 }
+
