@@ -15,16 +15,13 @@ public class OrderManager {
 		completedOrders=new ArrayList<Order>();
 	}
 
-	public void generateSalesRevenueReport(String startDate, String endDate) {
+	public void generateSalesRevenueReport(Date startDate, Date endDate) {
 		float total=0;
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		LocalDateTime start=LocalDateTime.parse(startDate, formatter);
-		LocalDateTime end=LocalDateTime.parse(endDate, formatter);
 		for(int i=0;i<completedOrders.size();i++){
-			if(completedOrders.get(i).getDatetime().compareTo(start)>=0 && completedOrders.get(i).getDatetime().compareTo(end)<=0){
+			if(completedOrders.get(i).getDatetime().compareTo(startDate)>=0 && completedOrders.get(i).getDatetime().compareTo(endDate)<=0){
 				System.out.println("Order "+ i + ": List of items " );
 				for(int j=0;j<completedOrders.get(i).getOrder().size();j++){
-					System.out.println("Item "+ j + ": " +completedOrders.get(i).getOrder().get(j).getMenuItem() + completedOrders.get(i).getOrder().get(j).checkAlaCarte(););
+					System.out.println("Item "+ j + ": " + completedOrders.get(i).getOrder().get(j).getMenuItem() + completedOrders.get(i).getOrder().get(j).checkAlaCarte(););
 				}
 				System.out.printf("Total: %.2f\n"+completedOrders.get(i).getPriceBefGST());
 				System.out.println();
@@ -35,20 +32,20 @@ public class OrderManager {
 		}
 	}
 
-	public void createOrder(Staff staff,String datetime,int OrderID) {
-		Order order= new Order(staff, datetime, OrderID);
+	public Order getOrder(int tableNumber){
+		for(int i=0;i<currentOrders.size();i++){
+			if(currentOrders.get(i).getTableNumber()==tableNumber){
+				return currentOrders.get(i);
+			}
+		}
+		return null;
+	}
+
+
+	public void createOrder(Staff staff,Date datetime,int tableNumber,Customer customer) {
+		Order order= new Order(staff, datetime, tableNumber ,customer);
 		currentOrders.add(order);
 	}
 
-	public void viewOrder(int orderID) {
-		for(int i=0;i<currentOrders.size();i++){
-			if(currentOrders.get(i).getOrderID()==orderID){
-				System.out.println("Quantity         Items");
-				for(int j=0;j<currentOrders.get(i).getOrder().size();j++){
-					System.out.println(currentOrders.get(i).getOrder().get(j).getQuantity() + "     " + currentOrders.get(i).getOrder().get(j).getMenuItem().getName() + "\n");
-				}
-			}
-		}
-	}
 
 }

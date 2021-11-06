@@ -452,9 +452,7 @@ public class RRPSSapp {
 			{
 				// create
 				//// orderMgr.createOrder store the order (composition)
-				//// what does staff.createOrder() do??
 				Date now = new Date(); // initialized as time of allocation, aka current datetime
-				//// if from reservation can just copy info ??
 				System.out.print("Enter customer name: ");
 				String custName = sc.nextLine();
 				System.out.print("Enter customer contact: ");
