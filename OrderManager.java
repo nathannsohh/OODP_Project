@@ -20,10 +20,12 @@ public class OrderManager {
 		LocalDateTime start= startDate.atStartOfDay();
 		LocalDateTime end= endDate.atTime(23,59,59);
 		for(int i=0;i<completedOrders.size();i++){
-			if(completedOrders.get(i).getDatetime().compareTo(start)>=0 && completedOrders.get(i).getDatetime().compareTo(endDate)<=0){
+			if(completedOrders.get(i).getDatetime().compareTo(start)>=0 && completedOrders.get(i).getDatetime().compareTo(end)<=0){
 				System.out.println("Order "+ i + ": List of items " );
 				for(int j=0;j<completedOrders.get(i).getOrder().size();j++){
-					System.out.println("Item "+ j + ": " + completedOrders.get(i).getOrder().get(j).getMenuItem() + completedOrders.get(i).getOrder().get(j).checkAlaCarte(););
+					System.out.printf("Item "+ j + ": " + completedOrders.get(i).getOrder().get(j).getMenuItem()+ " ");
+					completedOrders.get(i).getOrder().get(j).getMenuItem().checkAlacarte();
+					System.out.println();
 				}
 				System.out.printf("Total: %.2f\n"+completedOrders.get(i).getPriceBefGST());
 				System.out.println();
@@ -31,6 +33,7 @@ public class OrderManager {
 			}
 			System.out.println();
 			System.out.println("Total Revenue: "+ total);
+			System.out.println("____________________________________________________________");
 		}
 	}
 

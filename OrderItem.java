@@ -16,6 +16,7 @@ public class OrderItem {
 		return this.item;
 	}
 	
+	
 	public void setQuantity(int newQuantity){
 		quantity=newQuantity;
 	}

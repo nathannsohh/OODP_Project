@@ -14,7 +14,7 @@ public class AlaCarte extends MenuItem {
 
 	@Override
 	public void checkAlacarte() {
-		System.out.println("Package");
+		System.out.println("AlaCarte");
 	}
 
 }

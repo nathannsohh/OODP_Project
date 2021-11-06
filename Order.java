@@ -2,7 +2,9 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * 
+ */
 public class Order {
 
 	private Staff staff;
@@ -22,27 +24,53 @@ public class Order {
 		this.customer=customer;
 	}
 	
+	
+	/** 
+	 * @return LocalDateTime
+	 */
 	public LocalDateTime getDatetime(){
 		return this.datetime;
 	}
 	
+	
+	/** 
+	 * @return float
+	 */
 	public float getPriceBefGST(){
 		return priceBefGST;
 	}
 
+	
+	/** 
+	 * @return int
+	 */
 	public int getTableNumber(){
 		return tableNumber;
 	}
 
+	
+	/** 
+	 * @return ArrayList<OrderItem>
+	 */
 	public ArrayList<OrderItem> getOrder(){
 		return this.orderItems;
 	}
 	
+	
+	/** 
+	 * @param item
+	 * @param quantity
+	 */
 	public void addItem(MenuItem item,int quantity) {
 		OrderItem orderitem=new OrderItem(item,quantity);
 		orderItems.add(orderitem);
 	}
 
+	
+	/** 
+	 * @param item
+	 * @param quantity
+	 */
 	public void removeItem(MenuItem item,int quantity) { 
 		for(int i = 0; i < orderItems.size(); i++){
 			if(orderItems.get(i).getMenuItem()==item){
@@ -86,7 +114,7 @@ public class Order {
 		System.out.println("_______________________________________________________");
 		System.out.println("Quantity      Item                            Price");
 		for(int i=0;i<orderItems.size();i++){
-			System.out.println(orderItems.get(i).getQuantity()+ orderItems.get(i).getMenuItem().getName() +"     "+ orderItems.get(i).getMenuItem().getPrice()*order.get(i).getQuantity() + "\n");
+			System.out.println(orderItems.get(i).getQuantity()+ orderItems.get(i).getMenuItem().getName() +"     "+ orderItems.get(i).getMenuItem().getPrice()*orderItems.get(i).getQuantity() + "\n");
 			subtotal+= orderItems.get(i).getMenuItem().getPrice()*orderItems.get(i).getQuantity();
 		}
 		System.out.println("_______________________________________________________");
