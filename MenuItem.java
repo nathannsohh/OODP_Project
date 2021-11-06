@@ -48,5 +48,5 @@ abstract public class MenuItem {
 		this.price = price;
 	}
 
-	abstract public void checkAlacarte();
+	abstract public boolean checkAlacarte();
 }

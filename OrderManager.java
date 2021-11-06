@@ -19,22 +19,23 @@ public class OrderManager {
 		float total=0;
 		LocalDateTime start= startDate.atStartOfDay();
 		LocalDateTime end= endDate.atTime(23,59,59);
+		System.out.println("====================SALES REVENUE REPORT========================");
 		for(int i=0;i<completedOrders.size();i++){
 			if(completedOrders.get(i).getDatetime().compareTo(start)>=0 && completedOrders.get(i).getDatetime().compareTo(end)<=0){
 				System.out.println("Order "+ i + ": List of items " );
 				for(int j=0;j<completedOrders.get(i).getOrder().size();j++){
 					System.out.printf("Item "+ j + ": " + completedOrders.get(i).getOrder().get(j).getMenuItem()+ " ");
-					completedOrders.get(i).getOrder().get(j).getMenuItem().checkAlacarte();
-					System.out.println();
+					if(completedOrders.get(i).getOrder().get(j).getMenuItem().checkAlacarte()) System.out.println("Ala-carte");
+					else System.out.println("Promotion");
 				}
 				System.out.printf("Total: %.2f\n"+completedOrders.get(i).getPriceBefGST());
 				System.out.println();
 				total+=completedOrders.get(i).getPriceBefGST();
 			}
 			System.out.println();
-			System.out.println("Total Revenue: "+ total);
-			System.out.println("____________________________________________________________");
 		}
+		System.out.println("Total Revenue: "+ total);
+		System.out.println("____________________________________________________________");
 	}
 
 	public Order getOrder(int tableNumber){

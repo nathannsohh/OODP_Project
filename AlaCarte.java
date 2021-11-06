@@ -12,9 +12,13 @@ public class AlaCarte extends MenuItem {
 		return type;
 	}
 
+	public void setType(Type type){
+		this.type = type;
+	}
+
 	@Override
-	public void checkAlacarte() {
-		System.out.println("AlaCarte");
+	public boolean checkAlacarte() {
+		return true;
 	}
 
 }

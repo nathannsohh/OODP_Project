@@ -118,16 +118,16 @@ public class Order {
 			subtotal+= orderItems.get(i).getMenuItem().getPrice()*orderItems.get(i).getQuantity();
 		}
 		System.out.println("_______________________________________________________");
-		System.out.printf("                                      Subtotal: %.2f\n" + subtotal);
+		System.out.printf("                                      Subtotal: %.2f\n" , subtotal);
 		if(customer.getMember()==true){
 			discount=(float)(subtotal*0.10);
-			System.out.println("Discount:                              Discount: %.2f\n"+ discount);
+			System.out.printf("			             Discount: %.2f\n", discount);
 		}
 		priceBefGST=(float)((subtotal-discount)*1.10);
-		System.out.printf("                               10% Service Charge: %.2f\n" + (subtotal-discount)*0.10);
-		System.out.printf("                                7% Service Charge: %.2f\n" + priceBefGST*0.07);
+		System.out.printf("                               10%% Service Charge: %.2f\n" , (float)(subtotal-discount)*0.10);
+		System.out.printf("                                7%% Service Charge: %.2f\n" , priceBefGST*0.07);
 		price=(float)(priceBefGST*1.07);
-		System.out.printf("                                Total= %.2f\n"+ price);
+		System.out.printf("                                Total: %.2f\n", price);
 		System.out.println();
 		System.out.println("*******************************************************");
 		System.out.println("             Thank You For Dining With Us!             ");

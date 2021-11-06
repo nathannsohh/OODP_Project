@@ -36,8 +36,8 @@ public class Promotion extends MenuItem {
 	}
 
 	@Override
-	public void checkAlacarte() {
-		System.out.println("Package");
+	public boolean checkAlacarte() {
+		return false;
 	}
 
 }
