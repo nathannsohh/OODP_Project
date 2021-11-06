@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.regex.PatternSyntaxException;
 
+import Staff.JobTitle;
+
 /**
  * Restaurant is the main class used to run the Restaurant Reservation and Point of Sale System (RRPSS)
  * @author Nicole
@@ -68,14 +70,19 @@ public class Restaurant {
 		File file = new File(fileName);
 		BufferedReader br;
         String line, data[];		
-		Staff staff;
+		Staff staff; Gender g; JobTitle j;
 		try {
 			br = new BufferedReader(new FileReader(file));
 			while ((line = br.readLine()) != null)
 			{
 				data = line.split("\\|");
 				// name|gender|emp|job 
-				staff = new Staff(data[0], Gender[Integer.valueOf(data[1])], data[2], JobTitle[Integer.valueOf(data[3])]);
+				if (data[1] == "0") g = Gender.Male;
+				else g = Gender.Female;
+				if (data[3] == "0") j = JobTitle.waiter;
+				else if (data[3] == "1") j = JobTitle.cashier;
+				else j = JobTitle.manager;
+				staff = new Staff(data[0], g, data[2], j);
 				staffList.add(staff);
 			}
 		} catch (FileNotFoundException e) {
@@ -371,17 +378,30 @@ public class Restaurant {
 		int num;
 		do
 		{
-			System.out.print("1) DRINK\n" +
-							"2) MAIN_COURSE\n" +
-							"3) SIDE\n");
+			System.out.print("1) Main course\n" +
+							"2) Side\n" + 
+							"3) Drink\n" +
+							"4) Dessert");
 			System.out.print("Enter number to indicate type:");
 			num = sc.nextInt();
-			if (num == 1 || num == 2 || num == 3)
+			switch (num)
+			{
+			case 1:
+				return Type.MAIN_COURSE;
 				break;
-			else
-				System.out.print("Invalid input. Please enter 1-3 to select valid type.\n");
+			case 2:
+				return Type.SIDE;
+				break;
+			case 3:
+				return Type.DRINK;
+				break;
+			case 4:
+				return Type.DESSERT;
+				break;
+			default: 
+				System.out.print("Invalid input. Please enter 1-4 to select valid type.\n");
+			}
 		} while (true);
-		return Type[num-1];
 	}
 	/**
 	 * Helper function for runRRPSS(), 
