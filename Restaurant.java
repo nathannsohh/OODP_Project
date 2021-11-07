@@ -795,7 +795,6 @@ public class Restaurant {
 					else
 						System.out.println("Error: You can only reserve a table for a later time.");
 				} while (true);
-				dateTime = inputDateTime(sc);
 				resMgr.checkReservation(custName, dateTime);
 				break;
 			case 3:
