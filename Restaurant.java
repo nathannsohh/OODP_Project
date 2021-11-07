@@ -799,17 +799,9 @@ public class Restaurant {
 				break;
 			case 6:
 				// order invoice
-				int tableNum;
-				Order order; 				
-				
+				int tableNum;			
 				tableNum = inputTableNum(sc);
-				order = orderMgr.getOrder(tableNum);
-				if (order != null){
-					order.printOrderInvoice();
-					tableMgr.setTableAvailability(tableNum, true);
-				}
-				else
-					System.out.printf("Invalid input. No existing order for table %d. \n", tableNum);
+				orderMgr.printOrderInvoice(tableNum);
 				break;
 			case 7: 
 				// sale revenue report

@@ -2,13 +2,38 @@ import java.util.*;
 import java.util.function.Supplier;
 enum Gender{Male,Female};
 enum JobTitle{waiter,cashier,manager};
+/**
+ * Represents a staff of the restaurant.
+ * @author Gregory Ong
+ * @version 1.0
+ * @since 2021-11-06
+ */
 public class Staff {
-
+	/**
+	 * The first and last name of this staff.
+	 */
 	private String name;
+	/**
+	 * The gender of this staff.
+	 */
 	private Gender gender;
+	/**
+	 * The job title of this staff.
+	 */
 	private JobTitle jobTitle;
+	/**
+	 * The employeeID of this staff.
+	 */
 	private String employeeID;
 	
+	/**
+	 * Class constructor that creates a staff with attributes name, gender, employeeID and job title.
+	 * The name should include both first and last name.
+	 * @param name This staff's name.
+	 * @param gender This staff's gender.
+	 * @param employeeID This staff's employeeID.
+	 * @param jobTitle This staff's job title.
+	 */
 	public Staff(String name, Gender gender, String employeeID, JobTitle jobTitle){
 		this.name=name;
 		this.employeeID=employeeID;
@@ -18,7 +43,8 @@ public class Staff {
 
 	
 	/** 
-	 * @return Gender
+	 * Gets the gender of this staff.
+	 * @return Gender This staff's gender.
 	 */
 	public Gender getGender(){
 		return gender;
@@ -26,7 +52,8 @@ public class Staff {
 
 	
 	/** 
-	 * @return JobTitle
+	 * Gets the job title of this staff.
+	 * @return This staff's job title.
 	 */
 	public JobTitle getJobTitle(){
 		return jobTitle;
@@ -34,14 +61,16 @@ public class Staff {
 
 	
 	/** 
-	 * @return String
+	 * Gets the employee ID of this staff.
+	 * @return This staff's employee ID.
 	 */
 	public String getEmployeeID(){
 		return employeeID;
 	}
 	
 	/** 
-	 * @return String
+	 * Gets the first and last name of this staff.
+	 * @return This staff's name. 
 	 */
 	public String getName(){
 		return this.name;
@@ -49,11 +78,10 @@ public class Staff {
 	
 	
 	/** 
-	 * @param s
+	 * Sets this staff's name. The name should include both first and last name.
+	 * @param name This staff's name.
 	 */
-	public void setName(String s){
-		this.name=s;
+	public void setName(String name){
+		this.name=name;
 	}
-
-	
 }
