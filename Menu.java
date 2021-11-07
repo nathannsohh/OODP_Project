@@ -209,26 +209,8 @@ public class Menu {
 
 	}
 
-	public static void main(String[] args) {
-		// Menu m = new Menu();
-		// m.displayMenu();
-		// m.createNewMenuItem();
-		// // m.removeMenuItem("6");
-		// m.displayMenu();
-		// m.createNewMenuItem();
-		// // System.out.println("\n");
+	// public static void main(String[] args) {
 
-		// for (int i = 0; i < m.promotionItems.size(); i++) {
-		// MenuItem temp = (Promotion) m.promotionItems.get(i);
-		// System.out.println(temp.getName());
-		// Promotion temp2 = (Promotion) m.promotionItems.get(i);
-		// temp2.displayPromoItems();
-		// // temp.;
-
-		// }
-		// temp.displayPromoItems();
-		// m.displayMenu();
-
-	}
+	// }
 
 }
