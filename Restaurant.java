@@ -569,19 +569,16 @@ public class Restaurant {
 				int numItems = 0;
 				do 
 				{
-					valid = true;
 					try {
 						numItems = sc.nextInt();
 					} catch(InputMismatchException e){
 						System.out.println("Please input a valid number of items!");
-						valid = false;
 						continue;
 					}
 					if (numItems > 0)
 						break;
 					else
 						System.out.println("Invalid input. Promotional package must have at least 1 item.");
-
 				} while (true);				
 				AlaCarte alaCarteItem;
 				for (int i=0; i<numItems; i++)
@@ -636,11 +633,13 @@ public class Restaurant {
 					System.out.printf("Changed price of promotional package to %.2f\n" + promo.getPrice());
 					break;
 				case 4:
+					// add item 
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 					promo.addItem(alaCarteItem);
 					System.out.println("Added %s to promotional package\n" + alaCarteItem.getName());
 					break;
 				case 5:
+					// remove item 
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 					promo.removeItem(alaCarteItem);
 					System.out.println("Removed %s from promotional package\n" + alaCarteItem.getName());
