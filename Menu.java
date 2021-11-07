@@ -1,9 +1,8 @@
 
 /**
- * Menu class that does creation, deletion, validation of menu items
- * has the following 
- * @
- * @
+ * @author Rui Xiang
+ * @version 1.0
+ * @since 2021-11-07
  */
 
 import java.util.*;
