@@ -939,7 +939,7 @@ public class Restaurant {
 				LocalDate startDate = inputDate(sc);
 				System.out.print("REPORT PERIOD END: \n");
 				LocalDate endDate = inputDate(sc);
-				if (startDate.isBefore(endDate))
+				if (startDate.isBefore(endDate) || startDate.isEqual(endDate))
 					orderMgr.generateSalesRevenueReport(startDate, endDate); 
 				else
 					System.out.println("Error: start date must be before end date.");
