@@ -781,7 +781,7 @@ public class Restaurant {
 				Customer customer = inputCustomer(sc);
 				int tableNum = tableMgr.checkFutureAvailability(pax, dateTime, resMgr);
 				resMgr.createReservation(dateTime, pax, customer, tableNum);
-				System.out.printf("Reservation created for %d on %s for %d people\n", customer.getName(),
+				System.out.printf("Reservation created for %s on %s for %d people\n", customer.getName(),
 						dateTime.format(DateTimeFormatter.ofPattern(dateTimeFormatString)), pax);
 				break;
 			case 2:
