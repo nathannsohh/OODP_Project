@@ -1,5 +1,5 @@
 /**
- * Customer is a class that creates the customer object.
+ * Represents a customer of the restaurant.
  * @author Gregory Ong
  * @version 1.0
  * @since 2021-11-06
@@ -19,8 +19,8 @@ public class Customer {
 	 */
 	private boolean member;
 	/**
-	 * Class constructor that creates a customer with attributes name,contact and whether the customer is a member or not.
-	 *  The name should include both first and last name.
+	 * Class constructor that creates a customer with attributes name, contact and whether the customer is a member or not.
+	 * The name should include both first and last name.
 	 * @param name This customer's name.
 	 * @param contact This customer's contact.
 	 * @param member Whether the customer is a member or not.
@@ -32,14 +32,14 @@ public class Customer {
 	}
 	/**
 	 * Gets the first and last name of this Student.
-	 * @return this customer's name.
+	 * @return This customer's name.
 	 */
 	public String getName(){
 		return name;
 	}
 	/**
 	 * Gets this customer's contact number.
-	 * @return this customer's contact number.
+	 * @return This customer's contact number.
 	 */
 	public String getContact(){
 		return contact;
@@ -60,18 +60,16 @@ public class Customer {
 	}
 	/**
 	 * Checks whether this customer is a member.
-	 * @return whether this customer is a member. true for member, false for not member.
+	 * @return Whether this customer is a member. true for member, false for not member.
 	 */
 	public boolean getMember(){
 		return member;
 	}
 	/**
 	 * Sets membership.
-	 * @param member whether this a member. true for member, false for not member.
+	 * @param member Whether this a member. true for member, false for not member.
 	 */
 	public void setMember(boolean member){
 		this.member=member;
 	}
-	
-
 }
