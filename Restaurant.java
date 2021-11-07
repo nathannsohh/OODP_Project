@@ -59,7 +59,6 @@ public class Restaurant {
 	public Restaurant() {
 		// initialise staffList
 		staffList = new ArrayList<Staff>();
-
 		String fileName = "staffData.txt";
 		System.out.printf("Reading staff data from %s ...\n", fileName);
 		File file = new File(fileName);
@@ -72,7 +71,6 @@ public class Restaurant {
 			br = new BufferedReader(new FileReader(file));
 			while ((line = br.readLine()) != null) {
 				data = line.split("\\|");
-
 				// name|gender|employeeID|jobTitle
 				if (data[1] == "M")
 					g = Gender.MALE;
@@ -84,7 +82,6 @@ public class Restaurant {
 					j = JobTitle.CASHIER;
 				else
 					j = JobTitle.MANAGER;
-
 				staff = new Staff(data[0], g, data[2], j);
 				staffList.add(staff);
 			}
@@ -153,7 +150,6 @@ public class Restaurant {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatString);
 		LocalDate date = null;
 		String dateString;
-
 		boolean valid;
 		do {
 			valid = true;
@@ -181,11 +177,9 @@ public class Restaurant {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormatString);
 		LocalDateTime dateTime = null;
 		String dateString, dateTimeString;
-
 		int hour = 0;
 		boolean valid;
 		do {
-
 			valid = true;
 			System.out.printf("Enter date (%s): \n", dateFormatString);
 			dateString = sc.next();
@@ -194,6 +188,7 @@ public class Restaurant {
 				hour = sc.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid hour for reservation!");
+				sc.nextLine();
 				continue;
 			}
 			sc.nextLine();
@@ -262,7 +257,6 @@ public class Restaurant {
 	 * @param sc Scanner object to request inputs
 	 * @return number of people (pax)
 	 */
-
 	private int inputPax(Scanner sc) {
 		int pax = 0;
 		do {
@@ -278,7 +272,6 @@ public class Restaurant {
 			if (pax > 0 && pax <= 10)
 				break;
 			else
-
 				System.out.print("Invalid input. Please enter a number from 1 to 10.\n");
 		} while (true);
 		return pax;
@@ -298,9 +291,9 @@ public class Restaurant {
 				price = sc.nextFloat();
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid price!");
+				sc.nextLine();
 				continue;
 			}
-
 			sc.nextLine();
 			price = Math.round(price * 100) / 100;
 			if (price <= 0)
@@ -309,7 +302,6 @@ public class Restaurant {
 				break;
 		} while (true);
 		return price;
-
 	}
 
 	/**
@@ -318,7 +310,6 @@ public class Restaurant {
 	 * @param sc Scanner object to request inputs
 	 * @return quantity
 	 */
-
 	private int inputQuantity(Scanner sc) {
 		int quantity = 0;
 		do {
@@ -327,6 +318,7 @@ public class Restaurant {
 				quantity = sc.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid quantity!");
+				sc.nextLine();
 				continue;
 			}
 			sc.nextLine();
@@ -402,7 +394,6 @@ public class Restaurant {
 	 * @param sc Scanner object to request inputs
 	 * @return type
 	 */
-
 	private Type inputType(Scanner sc) {
 		int num = 0;
 		do {
@@ -412,6 +403,7 @@ public class Restaurant {
 				num = sc.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid option (1-4)!");
+				sc.nextLine();
 				continue;
 			}
 			sc.nextLine();
@@ -441,7 +433,6 @@ public class Restaurant {
 		AlaCarte alaCarteItem;
 		int option = 0;
 		do {
-
 			System.out.print("\n====== RRPSS manage ala carte items ======\n");
 			System.out.print("1) Create ala carte item\n" + "2) Update ala carte item\n" + "3) Remove ala carte item\n"
 					+ "4) Return to RRPSS application main menu\n");
@@ -450,6 +441,7 @@ public class Restaurant {
 				option = sc.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid option!");
+				sc.nextLine();
 				continue;
 			}
 			sc.nextLine();
@@ -468,7 +460,6 @@ public class Restaurant {
 			case 2:
 				// update
 				alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
-
 				System.out.printf("\n====== RRPSS update ala carte item %s =====\n", alaCarteItem.getName());
 				System.out.printf("1) Update name of ala carte item\n" + "2) Update description of ala carte item\n"
 						+ "3) Update price of ala carte item\n" + "4) Update type of ala carte item\n");
@@ -478,6 +469,7 @@ public class Restaurant {
 					subOption = sc.nextInt();
 				} catch (InputMismatchException e) {
 					System.out.println("Please input a valid option!");
+					sc.nextLine();
 					continue;
 				}
 				sc.nextLine();
@@ -543,7 +535,6 @@ public class Restaurant {
 	private void promotionHelper(Scanner sc) {
 		Promotion promo;
 		int option = 0;
-
 		do {
 			System.out.print("\n====== RRPSS manage promotions ======\n");
 			System.out.print("1) Create promotion\n" + "2) Update promotion\n" + "3) Remove promotion\n"
@@ -553,6 +544,7 @@ public class Restaurant {
 				option = sc.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid option!");
+				sc.nextLine();
 				continue;
 			}
 			sc.nextLine();
@@ -566,20 +558,19 @@ public class Restaurant {
 				float price = inputPrice(sc);
 				promo = menu.createPromotion(name, desc, price);
 				System.out.printf("Enter number of ala carte items in promotional package: \n");
-
 				int numItems = 0;
 				do {
 					try {
 						numItems = sc.nextInt();
 					} catch (InputMismatchException e) {
 						System.out.println("Please input a valid number of items!");
+						sc.nextLine();
 						continue;
 					}
 					if (numItems > 0)
 						break;
 					else
 						System.out.println("Invalid input. Promotional package must have at least 1 item.");
-
 				} while (true);
 				AlaCarte alaCarteItem;
 				for (int i = 0; i < numItems; i++) {
@@ -591,7 +582,6 @@ public class Restaurant {
 			case 2:
 				// update
 				promo = (Promotion) inputMenuItem(sc, false, true);
-
 				System.out.printf("\n====== RRPSS update promotion %s =====\n", promo.getName());
 				System.out.printf("1) Update name of promotional package\n"
 						+ "2) Update description of promotional package\n" + "3) Update price of promotional package\n"
@@ -602,6 +592,7 @@ public class Restaurant {
 					subOption = sc.nextInt();
 				} catch (InputMismatchException e) {
 					System.out.println("Please input a valid option!");
+					sc.nextLine();
 					continue;
 				}
 				sc.nextLine();
@@ -630,11 +621,17 @@ public class Restaurant {
 					System.out.printf("Changed price of promotional package to %.2f\n", promo.getPrice());
 					break;
 				case 4:
+					// add
+					System.out.println("Current items in promotional package");
+					promo.displayPromotionItems();
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 					promo.addItem(alaCarteItem);
 					System.out.printf("Added %s to promotional package\n", alaCarteItem.getName());
 					break;
 				case 5:
+					// remove
+					System.out.println("Current items in promotional package");
+					promo.displayPromotionItems();
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 					promo.removeItem(alaCarteItem);
 					System.out.printf("Removed %s from promotional package\n", alaCarteItem.getName());
@@ -677,7 +674,6 @@ public class Restaurant {
 		MenuItem item;
 		int option = 0;
 		do {
-
 			System.out.print("\n====== RRPSS manage orders ======\n");
 			System.out.print("1) Create order\n" + "2) View order\n" + "3) Add order item\n" + "4) Remove order item\n"
 					+ "5) Return to RRPSS application main menu\n");
@@ -686,6 +682,7 @@ public class Restaurant {
 				option = sc.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid option!");
+				sc.nextLine();
 				continue;
 			}
 			sc.nextLine();
@@ -699,12 +696,11 @@ public class Restaurant {
 				tableNum = tableMgr.checkCurrentAvailability(pax);
 				tableMgr.setTableAvailability(tableNum, false);
 				orderMgr.createOrder(staff, now, tableNum, customer);
-				System.out.printf("Order created for table %d ...\n", tableNum);
+				System.out.printf("Order created for table %d\n", tableNum);
 				break;
 			case 2:
 				// view
 				tableNum = inputTableNum(sc);
-
 				order = orderMgr.getOrder(tableNum);
 				if (order == null)
 					System.out.printf("No order for table number %d!\n", tableNum);
@@ -715,7 +711,6 @@ public class Restaurant {
 				// add
 				tableNum = inputTableNum(sc);
 				order = orderMgr.getOrder(tableNum);
-
 				if (order == null)
 					System.out.printf("No order created for table number %d!\n", tableNum);
 				else {
@@ -729,7 +724,6 @@ public class Restaurant {
 				// remove
 				tableNum = inputTableNum(sc);
 				order = orderMgr.getOrder(tableNum);
-
 				if (order == null)
 					System.out.printf("No order created for table number %d!\n", tableNum);
 				else {
@@ -759,7 +753,6 @@ public class Restaurant {
 	private void reservationHelper(Scanner sc) {
 		LocalDateTime dateTime;
 		String custName;
-
 		int option = 0;
 		do {
 			System.out.print("\n====== RRPSS manage reservations ======\n");
@@ -770,13 +763,13 @@ public class Restaurant {
 				option = sc.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid option!");
+				sc.nextLine();
 				continue;
 			}
 			sc.nextLine();
 			switch (option) {
 			case 1:
 				// create
-
 				do {
 					dateTime = inputDateTime(sc);
 					if (dateTime.isAfter(LocalDateTime.now()))
@@ -829,6 +822,67 @@ public class Restaurant {
 	}
 
 	/**
+	 * Helper function for runRRPSS(), which displays options to check table
+	 * availability, and executes the appropriate functions based on user inputs.
+	 * 
+	 * @param sc Scanner object to request inputs
+	 */
+	private void tableHelper(Scanner sc) {
+		int option = 0;
+		int pax = 0;
+		int table = -1;
+		LocalDateTime dateTime;
+		do {
+			System.out.print("\n====== RRPSS table availability ======\n");
+			System.out.print("1) Check current availability \n" + "2) Check future availability \n"
+					+ "3) Return to RRPSS application main menu\n");
+			System.out.print("Enter option number: \n");
+			try {
+				option = sc.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println("Please input a valid option!");
+				sc.nextLine();
+				continue;
+			}
+			sc.nextLine();
+			pax = inputPax(sc);
+			table = -1;
+			switch (option) {
+			case 1:
+				table = tableMgr.checkCurrentAvailability(pax);
+				if (table != -1)
+					System.out.printf("Table for %d AVAILABLE\n", pax);
+				else
+					System.out.printf("Table for %d NOT AVAILABLE\n", pax);
+				tableMgr.displayCurrentTableAvail();
+				break;
+			case 2:
+				do {
+					dateTime = inputDateTime(sc);
+					if (dateTime.isAfter(LocalDateTime.now()))
+						break;
+					else
+						System.out.println("Error: You can check table availability for a later time.");
+				} while (true);
+				table = tableMgr.checkFutureAvailability(pax, dateTime, resMgr);
+				if (table != -1)
+					System.out.printf("Table for %d AVAILABLE\n", pax);
+				else
+					System.out.printf("Table for %d NOT AVAILABLE\n", pax);
+				tableMgr.displayFutureTableAvail(dateTime, resMgr);
+				break;
+			case 3:
+				// back to main
+				System.out.printf("Returning to RRPSS main menu...\n");
+				break;
+			default:
+				// invalid input
+				System.out.print("Invalid option. Please enter option 1-3.\n");
+			}
+		} while (option != 3);
+	}
+
+	/**
 	 * Function to run Restaurant Reservation and Point of Sale System (RRPSS).
 	 * Displays main menu options to manage restaurant, and executes the appropriate
 	 * functions based on user inputs.
@@ -840,9 +894,7 @@ public class Restaurant {
 			// update reservations
 			resMgr.deleteInvalidReservations(tableMgr);
 			tableMgr.setReservedTablesOccupied(resMgr);
-
 			// main menu and options
-
 			System.out.print("\n====== RRPSS main menu ======\n");
 			System.out.print("1) Manage ala carte items\n" + "2) Manage promotions\n" + "3) Manage orders\n"
 					+ "4) Manage reservation bookings\n" + "5) Check table availability\n" + "6) Print order invoice\n"
@@ -852,6 +904,7 @@ public class Restaurant {
 				option = sc.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid option!");
+				sc.nextLine();
 				continue;
 			}
 			sc.nextLine();
@@ -874,51 +927,11 @@ public class Restaurant {
 				break;
 			case 5:
 				// table availability
-				int subOption = 0;
-
-				do {
-					System.out.print("\n====== RRPSS table availability ======\n");
-					System.out.print("1) Check current availability \n" + "2) Check future availability \n");
-					System.out.print("Enter option number: \n");
-					try {
-						subOption = sc.nextInt();
-					} catch (InputMismatchException e) {
-						System.out.println("Please input a valid option!");
-						continue;
-					}
-					sc.nextLine();
-					if (subOption == 1 || subOption == 2)
-						break;
-					else
-						System.out.println("Invalid input. Please enter 1 or 2.");
-				} while (true);
-				int pax = inputPax(sc);
-				int table = -1;
-				switch (subOption) {
-				case 1:
-					table = tableMgr.checkCurrentAvailability(pax);
-					break;
-				case 2:
-					LocalDateTime dateTime;
-					do {
-						dateTime = inputDateTime(sc);
-						if (dateTime.isAfter(LocalDateTime.now()))
-							break;
-						else
-							System.out.println("Error: You can check table availability for a later time.");
-					} while (true);
-					table = tableMgr.checkFutureAvailability(pax, dateTime, resMgr);
-				}
-				if (table != -1)
-					System.out.printf("Table for %d AVAILABLE\n", pax);
-				else
-					System.out.printf("Table for %d NOT AVAILABLE\n", pax);
+				tableHelper(sc);
 				break;
 			case 6:
 				// order invoice
-
 				int tableNum;
-
 				tableNum = inputTableNum(sc);
 				if (orderMgr.printOrderInvoice(tableNum))
 					tableMgr.setTableAvailability(tableNum, true);
@@ -929,7 +942,6 @@ public class Restaurant {
 				LocalDate startDate = inputDate(sc);
 				System.out.print("REPORT PERIOD END: \n");
 				LocalDate endDate = inputDate(sc);
-
 				if (startDate.isBefore(endDate) || startDate.isEqual(endDate))
 					orderMgr.generateSalesRevenueReport(startDate, endDate);
 				else
