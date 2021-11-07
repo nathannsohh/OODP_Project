@@ -928,6 +928,7 @@ public class Restaurant {
 				break;
 			case 6:
 				// order invoice
+
 				int tableNum;
 				tableNum = inputTableNum(sc);
 				if (orderMgr.printOrderInvoice(tableNum))
