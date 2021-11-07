@@ -854,6 +854,7 @@ public class Restaurant {
 					System.out.printf("Table for %d AVAILABLE\n", pax);
 				else
 					System.out.printf("Table for %d NOT AVAILABLE\n", pax);
+				System.out.println("Displaying availability of all tables...");
 				tableMgr.displayCurrentTableAvail();
 				break;
 			case 2:
@@ -869,6 +870,8 @@ public class Restaurant {
 					System.out.printf("Table for %d AVAILABLE\n", pax);
 				else
 					System.out.printf("Table for %d NOT AVAILABLE\n", pax);
+				System.out.printf("Displaying availability of all tables on %s...\n",
+						dateTime.format(DateTimeFormatter.ofPattern(dateTimeFormatString)));
 				tableMgr.displayFutureTableAvail(dateTime, resMgr);
 				break;
 			case 3:
