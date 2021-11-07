@@ -1,4 +1,4 @@
-Adam Ang|0|EMP001|2
-Brenda Brown|1|EMP002|0
-Carl Chua|0|EMP003|0
-Delilah Doe|1|EMP004|1
+Adam Ang|M|EMP001|W
+Brenda Brown|F|EMP002|W
+Carl Chua|M|EMP003|C
+Delilah Doe|F|EMP004|M

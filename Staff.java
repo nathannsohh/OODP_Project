@@ -1,7 +1,7 @@
 import java.util.*;
 import java.util.function.Supplier;
-enum Gender{Male,Female};
-enum JobTitle{waiter,cashier,manager};
+enum Gender{MALE, FEMALE};
+enum JobTitle{WAITER, CASHIER, MANAGER};
 public class Staff {
 
 	private String name;
