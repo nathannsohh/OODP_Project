@@ -790,7 +790,8 @@ public class Restaurant {
 				custName = sc.nextLine();
 				do {
 					dateTime = inputDateTime(sc);
-					if (dateTime.isAfter(LocalDateTime.now()))
+					if (dateTime.isAfter(LocalDateTime.now())
+							|| dateTime.isBefore(LocalDateTime.now().minusMinutes(15)))
 						break;
 					else
 						System.out.println("Error: You can only reserve a table for a later time.");
