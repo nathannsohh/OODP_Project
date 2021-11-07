@@ -1,3 +1,9 @@
+
+/**
+ * @author Rui Xiang
+ * @version 1.0
+ * @since 2021-11-07
+ */
 import java.util.ArrayList;
 
 public class Promotion extends MenuItem {

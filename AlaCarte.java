@@ -1,4 +1,8 @@
-
+/**
+ * @author Rui Xiang
+ * @version 1.0
+ * @since 2021-11-07
+ */
 public class AlaCarte extends MenuItem {
 
 	private Type type;
@@ -12,7 +16,7 @@ public class AlaCarte extends MenuItem {
 		return type;
 	}
 
-	public void setType(Type type){
+	public void setType(Type type) {
 		this.type = type;
 	}
 

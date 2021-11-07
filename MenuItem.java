@@ -1,3 +1,8 @@
+/**
+ * @author Rui Xiang
+ * @version 1.0
+ * @since 2021-11-07
+ */
 enum Type {
 	DRINK, MAIN_COURSE, SIDE, DESSERT;
 };

@@ -16,8 +16,8 @@ public class Menu {
 	ArrayList<MenuItem> alaCarteItems;
 	ArrayList<MenuItem> promotionItems;
 
-	int alaCarteCounter = 0;
-	int promotionCounter = 0;
+	int alaCarteCounter = 1;
+	int promotionCounter = 1;
 	// private Map<String, MenuItem> menuItems;
 
 	public Menu() {
@@ -39,9 +39,9 @@ public class Menu {
 				} else if (temp[4].equals("2")) {
 					type = Type.SIDE;
 				} else if (temp[4].equals("3")) {
-					type = Type.SIDE;
+					type = Type.DRINK;
 				} else {
-					type = Type.MAIN_COURSE;
+					type = Type.DESSERT;
 				}
 				var1 = new AlaCarte(temp[1], temp[2], Float.parseFloat(temp[3]), type, temp[0]);
 				alaCarteItems.add(var1);
@@ -143,8 +143,8 @@ public class Menu {
 	}
 
 	public AlaCarte createAlaCarte(String name, String desc, Float price, Type type) {
-		// String name, String desc, float price, Type type
 		AlaCarte item = new AlaCarte(name, desc, price, type, Integer.toString(alaCarteCounter));
+		alaCarteItems.add(item);
 		alaCarteCounter++;
 		return item;
 
@@ -158,7 +158,7 @@ public class Menu {
 
 	public void displayAlaCarte() {
 		AlaCarte temp;
-		System.out.println("ID          NAME    PRICE");
+		System.out.println("ID          NAME                   PRICE");
 		for (int i = 0; i < alaCarteItems.size(); i++) {
 
 			temp = (AlaCarte) alaCarteItems.get(i);
@@ -171,7 +171,6 @@ public class Menu {
 
 			temp = (AlaCarte) alaCarteItems.get(i);
 			if (temp.getType() == Type.SIDE) {
-				// System.out.println("ID NAME PRICE");
 				System.out.printf("%-3s %-30s %.2f", temp.getId(), temp.getName(), temp.getPrice());
 				System.out.println("");
 			}
@@ -180,7 +179,14 @@ public class Menu {
 
 			temp = (AlaCarte) alaCarteItems.get(i);
 			if (temp.getType() == Type.DRINK) {
-				// System.out.println("ID NAME PRICE");
+				System.out.printf("%-3s %-30s %.2f", temp.getId(), temp.getName(), temp.getPrice());
+				System.out.println("");
+			}
+		}
+		for (int i = 0; i < alaCarteItems.size(); i++) {
+
+			temp = (AlaCarte) alaCarteItems.get(i);
+			if (temp.getType() == Type.DESSERT) {
 				System.out.printf("%-3s %-30s %.2f", temp.getId(), temp.getName(), temp.getPrice());
 				System.out.println("");
 			}
