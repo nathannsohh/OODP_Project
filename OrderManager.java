@@ -70,7 +70,7 @@ public class OrderManager {
 	/**
 	 * Gets the order in the current order list by tablenumber.
 	 * @param tableNumber The tablenumber of the order.
-	 * @return
+	 * @return The order with the corresponding table number.
 	 */
 	public Order getOrder(int tableNumber){
 		//Go through the current order list
@@ -96,17 +96,20 @@ public class OrderManager {
 	/**
 	 * Prints the order invoice(receipt) of the order based on table number.
 	 * @param TableNumber The table number of this order.
+	 * @return true if the order is billed and order invoice is printed, otherwise return false.
 	 */
-	public void printOrderInvoice(int TableNumber) {
+	public boolean printOrderInvoice(int TableNumber) {
 		Order curOrder=getOrder(TableNumber);
 		//If order is not found
 		if(curOrder==null){
 			System.out.println("This table currently does not have an order.");
+			return false;
 		}
 		else{//print order invoice(receipt) and remove this order from the current order list and add it to the completed order list.
 			curOrder.printOrderInvoice();
 			currentOrders.remove(curOrder);
 			completedOrders.add(curOrder);
+			return true;
 		}
 	}	
 }
