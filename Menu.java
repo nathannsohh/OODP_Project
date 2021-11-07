@@ -25,7 +25,7 @@ public class Menu {
 		AlaCarte var1;
 		Promotion promo;
 		Type type;
-		
+
 		System.out.println("Reading menu data from alacarte.csv ...");
 		File file = new File("alacarte.csv");
 		try {
@@ -153,6 +153,7 @@ public class Menu {
 
 	public Promotion createPromotion(String name, String desc, Float price) {
 		Promotion promo = new Promotion(name, desc, price, Integer.toString(promotionCounter + 100));
+		promotionItems.add(promo);
 		promotionCounter++;
 		return promo;
 	}

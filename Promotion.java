@@ -61,6 +61,16 @@ public class Promotion extends MenuItem {
 	}
 
 	/**
+	 * print out all the alacarte items in the promotion
+	 */
+	public void displayPromotionItems() {
+		// System.out.println("hello hehe");
+		for (int i = 0; i < items.size(); i++) {
+			System.out.println(items.get(i).getName());
+		}
+	}
+
+	/**
 	 * check if current objec is a alacarte
 	 */
 	@Override
