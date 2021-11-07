@@ -26,7 +26,8 @@ public class Menu {
 		AlaCarte var1;
 		Promotion promo;
 		Type type;
-
+		
+		System.out.println("Reading menu data from alacarte.csv ...");
 		File file = new File("alacarte.csv");
 		try {
 			Scanner sc = new Scanner(file);
@@ -50,6 +51,7 @@ public class Menu {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Reading menu data from promotion.csv ...");
 		File file2 = new File("promotion.csv");
 		try {
 			Scanner sc = new Scanner(file2);

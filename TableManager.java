@@ -10,9 +10,9 @@ public class TableManager {
 	
 	public TableManager(){ //use txt file to get tables
 		tables = new Table[10];
-		String path = new File("").getAbsolutePath();
-		String fileName = "\\tableData.txt";
-		File file = new File(path + fileName);
+		String fileName = "tableData.txt";
+		System.out.printf("Reading table data from %s ...\n", fileName);
+		File file = new File(fileName);
 		try {
 			Scanner sc = new Scanner(file);
 			int i = 0;
