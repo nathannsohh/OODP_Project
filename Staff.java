@@ -1,7 +1,12 @@
 import java.util.*;
 import java.util.function.Supplier;
-
+/**
+ * The enumeration of possible gender of staff.
+ */
 enum Gender{MALE, FEMALE};
+/**
+ * The enumeration of possible job titles of staff.
+ */
 enum JobTitle{WAITER, CASHIER, MANAGER};
 /**
  * Represents a staff of the restaurant.

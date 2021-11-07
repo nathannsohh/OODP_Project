@@ -181,7 +181,7 @@ public class Order {
 			// Else go through the list of order items and display the order items and their corresponding quantity.
 			System.out.println("Quantity         Items");
 			for(int j=0;j<orderItems.size();j++){
-				System.out.println(orderItems.get(j).getQuantity() + "                " + orderItems.get(j).getMenuItem().getName() + "\n");
+				System.out.printf("%-16d %-30s \n",orderItems.get(j).getQuantity(),orderItems.get(j).getMenuItem().getName());
 			}
 		}
 	}
@@ -196,33 +196,37 @@ public class Order {
 		System.out.println("                     MacDonalds                        ");
 		System.out.println("*******************************************************");
 		System.out.println("Table Number: " + tableNumber);
-		System.out.println(datetime);
+		LocalDate date=datetime.toLocalDate();
+		System.out.println(date);
 		System.out.println("Served by: "+ staff.getName());
 		System.out.println("_______________________________________________________");
 		// Check if list of order item is empty
 		if(orderItems.size() == 0 ) System.out.println("No items ordered.");
 		else{ 
 			// else print out the quantity, the item name and price of the coressponding order items in the list of order item.
-			System.out.println("Quantity      Item                            Price");
+			System.out.println("Quantity      Item                                Price");
 			//Go through the list of order items
 			for(int i=0;i<orderItems.size();i++){
-				System.out.println(orderItems.get(i).getQuantity()+"             "+ orderItems.get(i).getMenuItem().getName() +"                 "+ orderItems.get(i).getMenuItem().getPrice()*orderItems.get(i).getQuantity() + "\n");
+				System.out.printf("%-13d %-34s %6.2f\n",orderItems.get(i).getQuantity(),orderItems.get(i).getMenuItem().getName(),orderItems.get(i).getMenuItem().getPrice()*orderItems.get(i).getQuantity());
 				subtotal+= orderItems.get(i).getMenuItem().getPrice()*orderItems.get(i).getQuantity();
 			}
 			System.out.println("_______________________________________________________");
-			System.out.printf("                                        Subtotal: %.2f\n" , subtotal);
+			System.out.printf("                                   Subtotal: %10.2f\n" , subtotal);
 			// Members are entitled to a 10% discount off their subtotal.
 			if(customer.getMember()==true){
 				discount=(float)(subtotal*0.10);
-				System.out.printf("                                        Discount: %.2f\n",discount);
+				System.out.printf("                                   Discount: %10.2f\n",discount);
+			}
+			else{
+				System.out.println("                                Discount: 0.00");
 			}
 			// The price of this order before Government Service Tax (GST).
 			priceBefGST=(float)((subtotal-discount)*1.10);
-			System.out.printf("                              10%% Service Charge: %.2f\n" , (float)((subtotal-discount)*0.10) );
-			System.out.printf("                               7%% Service Charge: %.2f\n" , priceBefGST*0.07);
+			System.out.printf("                         10%% Service Charge: %10.2f\n" , (float)((subtotal-discount)*0.10) );
+			System.out.printf("                              7%% GST Charge: %10.2f\n" , priceBefGST*0.07);
 			//final price of the order.
 			price=(float)(priceBefGST*1.07);
-			System.out.printf("                                           Total= %.2f\n", price);
+			System.out.printf("                                      Total: %10.2f\n", price);
 		}
 		System.out.println();
 		System.out.println("*******************************************************");

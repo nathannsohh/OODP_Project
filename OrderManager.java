@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Manages the lists of orders in the restaurant. List of orders include: current order list and completed order list.
-* @author Gregory Ong
+ * @author Gregory Ong
  * @version 1.0
  * @since 2021-11-06
  */
@@ -44,27 +44,35 @@ public class OrderManager {
 		System.out.println("From: "+ startDate);
 		System.out.println("To: "+ endDate);
 		System.out.println();
+		Hashtable<String, Integer> my_dict = new Hashtable<String, Integer>();
 		//Go through the completed orders list to find orders between the start and end date.
 		for(int i=0;i<completedOrders.size();i++){
 			if(completedOrders.get(i).getDatetime().compareTo(start)>=0 && completedOrders.get(i).getDatetime().compareTo(end)<=0){
-				System.out.println("Order "+ i+1 );
-				//In each order, go through the list of order items and display their name 
-				//and whether they are Alacarte or promotional items
+				//In each order, go through the list of order items 
 				for(int j=0;j<completedOrders.get(i).getOrderItems().size();j++){
-					System.out.printf("Item "+ j + ": " + completedOrders.get(i).getOrderItems().get(j).getMenuItem().getName()+ " ");
-					completedOrders.get(i).getOrderItems().get(j).getMenuItem().checkAlacarte();
-					System.out.println();
+					int quantity=completedOrders.get(i).getOrderItems().get(j).getQuantity();
+					String name= completedOrders.get(i).getOrderItems().get(j).getMenuItem().getName();
+					if (my_dict.containsKey(name)) {
+						// if the order item exists, update quantity
+						my_dict.put(name,quantity+my_dict.get(name));
+					 } else {
+						// if the order item does not exists, add it to the dictionary, including its quantity
+						my_dict.put(name,quantity);
+					 }
 				}
-				//Display the revenue earned by the restaurant for the order which corresponds to price before GST.
-				System.out.printf("Total: %.2f\n",completedOrders.get(i).getPriceBefGST());
-				System.out.println();
 				total+=completedOrders.get(i).getPriceBefGST();
-				System.out.println("---------------------------------------------------------------------------");
 			}
 		}
+		System.out.println("Quantity      Item");
+		Set<String> setOfKeys = my_dict.keySet();
+		for (String key : setOfKeys) {
+				// Print and display the Rank and Name
+				System.out.printf("%-13d %-34s \n",my_dict.get(key),key);
+		}
+		System.out.println("---------------------------------------------------------------------------");
 		System.out.println();
 		//Display the total revenue of the restaurant from the start date to the end date.
-		System.out.printf("Total Revenue: %.2f\n", total);
+		System.out.printf("Total Revenue: %10.2f\n", total);
 		System.out.println("____________________________________________________________________");
 	}
 	/**
