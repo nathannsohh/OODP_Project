@@ -122,4 +122,36 @@ public class TableManager {
 				setTableAvailability(manager.getReservationList().get(i).getTableNumber(), false);
 		}
 	}
+
+	/**
+	 * Displays the availability of all of the tables in the restaurant currently
+	 */
+	public void displayCurrentTableAvail(){
+		for(int i = 0; i < 10; i++){
+			if(tables[i].getAvailable() == true)
+				System.out.println("Table " + tables[i].getTableNumber() + ": AVAILABLE");
+			else
+				System.out.println("Table " + tables[i].getTableNumber() + ": UNAVAILABLE");
+		}
+	}
+
+	/**
+	 * Displays the availability of all of the tables in the restaurant at a certain date and time
+	 * @param dateTime The date and time to be checked
+	 * @param manager the class that manages the reservations for the restaurant
+	 */
+	public void displayFutureTableAvail(LocalDateTime dateTime, ReservationManager manager){
+		ArrayList<Reservation> reservationList = manager.getReservationList();
+		ArrayList<Integer> tableNumList = new ArrayList<Integer>();
+		for (int i = 0; i < reservationList.size(); i++) {
+			if (reservationList.get(i).getDatetime().isEqual(dateTime)) 
+				tableNumList.add(reservationList.get(i).getTableNumber()); 
+		}
+		for(int i = 0; i < 10; i++){
+			if(tableNumList.contains(i + 1))
+				System.out.println("Table " + tables[i].getTableNumber() + ": UNAVAILABLE");
+			else		
+				System.out.println("Table " + tables[i].getTableNumber() + ": AVAILABLE");
+		}
+	}
 }
