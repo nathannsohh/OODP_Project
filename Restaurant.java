@@ -1,4 +1,4 @@
-import java.util.Scanner; 
+import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.*;
@@ -13,34 +13,29 @@ import java.io.IOException;
 import java.util.regex.PatternSyntaxException;
 
 /**
- * Restaurant is the main class used to run the Restaurant Reservation and Point of Sale System (RRPSS)
+ * Restaurant is the main class used to run the Restaurant Reservation and Point
+ * of Sale System (RRPSS)
+ * 
  * @author Nicole
  * @version 1.0
  * @since 2021-11-07
  */
 public class Restaurant {
 	/**
-	 * The standard format for a date input, 
-	 * given in 2 digit day of month (dd),
-	 * 2 digit month of year (MM), and
-	 * 4 digit year of era (YYYY). 
-	 * e.g. 10/07/2004
+	 * The standard format for a date input, given in 2 digit day of month (dd), 2
+	 * digit month of year (MM), and 4 digit year of era (YYYY). e.g. 10/07/2004
 	 */
-	private static final String dateFormatString = "dd/MM/yyyy"; 
+	private static final String dateFormatString = "dd/MM/yyyy";
 	/**
-	 * The standard format for a datetime input, 
-	 * given in 2 digit day of month (dd),
-	 * 2 digit month of year (MM), 
-	 * 4 digit year of era (YYYY),
-	 * 2 digit hour of day (0-23) (HH), and
-	 * minute of hour (mm). 
-	 * e.g. 10/07/2004 00:30
+	 * The standard format for a datetime input, given in 2 digit day of month (dd),
+	 * 2 digit month of year (MM), 4 digit year of era (YYYY), 2 digit hour of day
+	 * (0-23) (HH), and minute of hour (mm). e.g. 10/07/2004 00:30
 	 */
-	private static final String dateTimeFormatString = "dd/MM/yyyy HH:mm"; 
+	private static final String dateTimeFormatString = "dd/MM/yyyy HH:mm";
 	/**
 	 * The list of Staff employed by the restaurant.
 	 */
-	private ArrayList<Staff> staffList; 
+	private ArrayList<Staff> staffList;
 	/**
 	 * The Menu of this restaurant.
 	 */
@@ -56,31 +51,35 @@ public class Restaurant {
 	/**
 	 * The ReservationManager of this restaurant.
 	 */
-	private ReservationManager resMgr;	
+	private ReservationManager resMgr;
+
 	/**
 	 * Class constructor. Initialises staffList, menu, and tableMgr with test data.
 	 */
-	public Restaurant() 
-	{
+	public Restaurant() {
 		// initialise staffList
 		staffList = new ArrayList<Staff>();
+
 		String fileName = "staffData.txt";
 		System.out.printf("Reading staff data from %s ...\n", fileName);
 		File file = new File(fileName);
 		BufferedReader br;
-        String line, data[];		
-		Staff staff; Gender g; JobTitle j;
+		String line, data[];
+		Staff staff;
+		Gender g;
+		JobTitle j;
 		try {
 			br = new BufferedReader(new FileReader(file));
-			while ((line = br.readLine()) != null)
-			{
+			while ((line = br.readLine()) != null) {
 				data = line.split("\\|");
+
 				// name|gender|employeeID|jobTitle 
 				if (data[1] == "M") g = Gender.MALE;
 				else g = Gender.FEMALE;
 				if (data[3] == "W") j = JobTitle.WAITER;
 				else if (data[3] == "C") j = JobTitle.CASHIER;
 				else j = JobTitle.MANAGER;
+
 				staff = new Staff(data[0], g, data[2], j);
 				staffList.add(staff);
 			}
@@ -98,48 +97,48 @@ public class Restaurant {
 		// initialise reservation manager
 		resMgr = new ReservationManager();
 	}
+
 	/**
-	 * Requests user to input customer data (name, contact, membership), 
-	 * validates inputs, 
-	 * creates and returns Customer object.
-	 * @param sc 	Scanner object to request inputs
+	 * Requests user to input customer data (name, contact, membership), validates
+	 * inputs, creates and returns Customer object.
+	 * 
+	 * @param sc Scanner object to request inputs
 	 * @return newly created customer object
 	 */
-	private Customer inputCustomer(Scanner sc)
-	{
+	private Customer inputCustomer(Scanner sc) {
 		Customer customer;
 		System.out.print("Enter customer name: \n");
 		String custName = sc.nextLine();
 		System.out.print("Enter customer contact: \n");
 		String custContact = sc.nextLine();
 		char membership;
-		do 
-		{
+		do {
 			System.out.print("Is customer a member? (Y/N) \n");
 			membership = sc.next().toUpperCase().charAt(0);
 			if (membership == 'Y' || membership == 'N')
 				break;
 			else
 				System.out.print("Invalid input. Please enter Y or N.\n");
-		} while (true); 
+		} while (true);
 		if (membership == 'Y')
 			customer = new Customer(custName, custContact, true);
 		else
 			customer = new Customer(custName, custContact, false);
 		return customer;
 	}
+
 	/**
-	 * Requests user to input date based on DateFormatString
-	 * validates inputs, 
+	 * Requests user to input date based on DateFormatString validates inputs,
 	 * creates and returns LocalDate object.
-	 * @param sc 	Scanner object to request inputs
+	 * 
+	 * @param sc Scanner object to request inputs
 	 * @return newly created LocatDate object
 	 */
-	private LocalDate inputDate(Scanner sc)
-	{
+	private LocalDate inputDate(Scanner sc) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatString);
 		LocalDate date = null;
 		String dateString;
+
 		boolean valid;
 		do 
 		{
@@ -148,31 +147,32 @@ public class Restaurant {
 			dateString = sc.next();
 			try {
 				date = LocalDate.parse(dateString, formatter);
-			}
-			catch (DateTimeParseException exc) {
+			} catch (DateTimeParseException exc) {
 				System.out.printf("Invalid date input: %s is not parsable!", dateString);
 				valid = false;
 			}
 		} while (!valid);
 		return date;
 	}
+
 	/**
-	 * Requests user to input datetime based on DateTimeFormatString 
-	 * validates inputs, 
-	 * creates and returns LocalDateTime object.
-	 * Input time is restricted to hour (e.g. 23:00, not 23:36).
-	 * @param sc 	Scanner object to request inputs
+	 * Requests user to input datetime based on DateTimeFormatString validates
+	 * inputs, creates and returns LocalDateTime object. Input time is restricted to
+	 * hour (e.g. 23:00, not 23:36).
+	 * 
+	 * @param sc Scanner object to request inputs
 	 * @return newly created LocatDateTime object
 	 */
-	private LocalDateTime inputDateTime(Scanner sc)
-	{
+	private LocalDateTime inputDateTime(Scanner sc) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormatString);
 		LocalDateTime dateTime = null;
 		String dateString, dateTimeString;
+
 		int hour = 0;
 		boolean valid;
 		do 
 		{
+
 			valid = true;
 			System.out.printf("Enter date (%s): \n", dateFormatString);
 			dateString = sc.next();
@@ -184,11 +184,10 @@ public class Restaurant {
 				continue;
 			}
 			sc.nextLine();
-			dateTimeString = String.format("%s %02d:00",dateString, hour);
+			dateTimeString = String.format("%s %02d:00", dateString, hour);
 			try {
 				dateTime = LocalDateTime.parse(dateTimeString, formatter);
-			}
-			catch (DateTimeParseException exc) {
+			} catch (DateTimeParseException exc) {
 				System.out.printf("Invalid datetime input: %s is not parsable!\n", dateTimeString);
 				valid = false;
 			}
@@ -197,59 +196,60 @@ public class Restaurant {
 		} while (!valid);
 		return dateTime;
 	}
+
 	/**
-	 * Requests user to input MenuItemID 
-	 * validates input, 
-	 * gets and returns associated MenuItem object.
-	 * @param sc 			Scanner object to request inputs
-	 * @param isAlaCarte 	<code>true</code> if MenuItemID of AlaCarte objects should be accepted, 
-	 * 						<code>false</code> otherwise.
-	 * @param isPromo	 	<code>true</code> if MenuItemID of Promotion objects should be accepted, 
-	 * 						<code>false</code> otherwise.
+	 * Requests user to input MenuItemID validates input, gets and returns
+	 * associated MenuItem object.
+	 * 
+	 * @param sc         Scanner object to request inputs
+	 * @param isAlaCarte <code>true</code> if MenuItemID of AlaCarte objects should
+	 *                   be accepted, <code>false</code> otherwise.
+	 * @param isPromo    <code>true</code> if MenuItemID of Promotion objects should
+	 *                   be accepted, <code>false</code> otherwise.
 	 * @return associated MenuItem object
 	 */
-	private MenuItem inputMenuItem(Scanner sc, boolean isAlaCarte, boolean isPromo)
-	{
+	private MenuItem inputMenuItem(Scanner sc, boolean isAlaCarte, boolean isPromo) {
 		String menuItemID;
 		MenuItem item;
-		do
-		{
-			if (isAlaCarte && isPromo) menu.displayMenu(); 
-			else if (isAlaCarte) menu.displayAlaCarte();
-			else if (isPromo) menu.displayPromotion();
+		do {
+			if (isAlaCarte && isPromo)
+				menu.displayMenu();
+			else if (isAlaCarte)
+				menu.displayAlaCarte();
+			else if (isPromo)
+				menu.displayPromotion();
 			System.out.print("Enter menu item ID: ");
-			menuItemID = sc.next(); 
-			if (menu.isValidID(menuItemID))
-			{
+			menuItemID = sc.next();
+			if (menu.isValidID(menuItemID)) {
 				item = menu.getMenuItem(menuItemID);
-				if (isAlaCarte && !isPromo) // only accept ala carte 
+				if (isAlaCarte && !isPromo) // only accept ala carte
 				{
-					if (item.checkAlacarte()) 
+					if (item.checkAlacarte())
 						break;
 					else
 						System.out.print("Invalid input. Please enter ID of ala carte item.\n");
 				} else if (!isAlaCarte && isPromo) // only accept promo
 				{
-					if (!item.checkAlacarte()) 
+					if (!item.checkAlacarte())
 						break;
 					else
 						System.out.print("Invalid input. Please enter ID of promotion item.\n");
-				}
-				else // accept any menu item
+				} else // accept any menu item
 					break;
-			}
-			else
+			} else
 				System.out.print("Invalid input. Please enter valid ID.\n");
 		} while (true);
 		return item;
 	}
+
 	/**
-	 * Requests user to input number of people,
-	 * validates input, and 
-	 * and returns input.
-	 * @param sc 	Scanner object to request inputs
+	 * Requests user to input number of people, validates input, and and returns
+	 * input.
+	 * 
+	 * @param sc Scanner object to request inputs
 	 * @return number of people (pax)
 	 */
+
 	private int inputPax(Scanner sc)
 	{
 		int pax = 0; 
@@ -266,22 +266,21 @@ public class Restaurant {
 			if (pax > 0 && pax <= 10)
 				break;
 			else
+
 				System.out.print("Invalid input. Please enter a number from 1 to 10.\n");
 		} while (true); 
 		return pax;
 	}
+
 	/**
-	 * Requests user to input price,
-	 * validates input, and 
-	 * and returns input.
-	 * @param sc 	Scanner object to request inputs
+	 * Requests user to input price, validates input, and and returns input.
+	 * 
+	 * @param sc Scanner object to request inputs
 	 * @return price
 	 */
-	private float inputPrice(Scanner sc)
-	{
+	private float inputPrice(Scanner sc) {
 		float price = 0;
-		do 
-		{
+		do {
 			System.out.print("Enter price: \n");
 			try {
 				price = sc.nextFloat();
@@ -289,23 +288,25 @@ public class Restaurant {
 				System.out.println("Please input a valid price!");
 				continue;
 			}
+
 			sc.nextLine();
 			price = Math.round(price*100)/100;
 			if (price <= 0)
 				System.out.print("Invalid input. Please enter a price greater than 0.\n");
 			else
 				break;
-		} while	(true); 
+		} while (true);
 		return price;
-	
+
 	}
+
 	/**
-	 * Requests user to input quantity,
-	 * validates input, and 
-	 * and returns input.
-	 * @param sc 	Scanner object to request inputs
-	 * @return quantity 
+	 * Requests user to input quantity, validates input, and and returns input.
+	 * 
+	 * @param sc Scanner object to request inputs
+	 * @return quantity
 	 */
+
 	private int inputQuantity(Scanner sc)
 	{
 		int quantity = 0;
@@ -326,33 +327,33 @@ public class Restaurant {
 		} while (true);
 		return quantity;
 	}
+
 	/**
-	 * Finds and returns associated Staff object from staffList based on employee ID.
-	 * @param employeeID 	employee ID to identify staff
+	 * Finds and returns associated Staff object from staffList based on employee
+	 * ID.
+	 * 
+	 * @param employeeID employee ID to identify staff
 	 * @return associated Staff object
 	 */
-	private Staff getStaff(String employeeID)
-	{
-		for (Staff staff : staffList)
-		{
+	private Staff getStaff(String employeeID) {
+		for (Staff staff : staffList) {
 			if (staff.getEmployeeID().equals(employeeID))
 				return staff;
 		}
 		return null;
 	}
+
 	/**
-	 * Requests user to input an employee ID,
-	 * validates input, and 
-	 * and returns the associated Staff object.
-	 * @param sc 	Scanner object to request inputs
+	 * Requests user to input an employee ID, validates input, and and returns the
+	 * associated Staff object.
+	 * 
+	 * @param sc Scanner object to request inputs
 	 * @return associated Staff object
 	 */
-	private Staff inputStaff(Scanner sc)
-	{
-		String employeeID; 
+	private Staff inputStaff(Scanner sc) {
+		String employeeID;
 		Staff staff;
-		do 
-		{
+		do {
 			System.out.printf("Enter employee ID: \n");
 			employeeID = sc.nextLine();
 			staff = getStaff(employeeID);
@@ -363,18 +364,16 @@ public class Restaurant {
 		} while (true);
 		return staff;
 	}
+
 	/**
-	 * Requests user to input table number,
-	 * validates input, and 
-	 * and returns input.
-	 * @param sc 	Scanner object to request inputs
-	 * @return table number 
+	 * Requests user to input table number, validates input, and and returns input.
+	 * 
+	 * @param sc Scanner object to request inputs
+	 * @return table number
 	 */
-	private int inputTableNum(Scanner sc)
-	{
+	private int inputTableNum(Scanner sc) {
 		int tableNum;
-		do 
-		{
+		do {
 			System.out.print("Enter table number: \n");
 			tableNum = sc.nextInt();
 			sc.nextLine();
@@ -385,13 +384,15 @@ public class Restaurant {
 		} while (true);
 		return tableNum;
 	}
+
 	/**
-	 * Requests user to input Type of AlaCarte object,
-	 * validates input, and 
-	 * and returns input.
-	 * @param sc 	Scanner object to request inputs
-	 * @return type 
+	 * Requests user to input Type of AlaCarte object, validates input, and and
+	 * returns input.
+	 * 
+	 * @param sc Scanner object to request inputs
+	 * @return type
 	 */
+
 	private Type inputType(Scanner sc)
 	{
 		int num = 0;
@@ -419,22 +420,24 @@ public class Restaurant {
 				return Type.DRINK;
 			case 4:
 				return Type.DESSERT;
-			default: 
+			default:
 				System.out.print("Invalid input. Please enter 1-4 to select valid type.\n");
 			}
 		} while (true);
 	}
+
 	/**
-	 * Helper function for runRRPSS(), 
-	 * which displays options to manage AlaCarte items on the Menu, 
-	 * and executes the appropriate functions based on user inputs.
-	 * @param sc 	Scanner object to request inputs
+	 * Helper function for runRRPSS(), which displays options to manage AlaCarte
+	 * items on the Menu, and executes the appropriate functions based on user
+	 * inputs.
+	 * 
+	 * @param sc Scanner object to request inputs
 	 */
-	private void alaCarteHelper(Scanner sc) 
-	{
+	private void alaCarteHelper(Scanner sc) {
 		AlaCarte alaCarteItem;
-		int option = 0;		
+		int option = 0;
 		do {
+
 			System.out.print("\n====== RRPSS manage ala carte items ======\n");
 			System.out.print("1) Create ala carte item\n" + 
 							"2) Update ala carte item\n" + 
@@ -448,22 +451,22 @@ public class Restaurant {
 				continue;
 			}
 			sc.nextLine();
-			switch (option)
-			{
+			switch (option) {
 			case 1:
 				// create
 				System.out.print("Enter name of new ala carte item: \n");
-				String name = sc.nextLine(); 
+				String name = sc.nextLine();
 				System.out.print("Enter description: \n");
 				String desc = sc.nextLine();
 				float price = inputPrice(sc);
-				Type type = inputType(sc);				
+				Type type = inputType(sc);
 				menu.createAlaCarte(name, desc, price, type);
 				System.out.printf("Added %s to menu\n", name);
 				break;
 			case 2:
 				// update
 				alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
+
 				System.out.printf("\n====== RRPSS update ala carte item %s =====\n", alaCarteItem.getName());
 				System.out.printf("1) Update name of ala carte item\n" +
 								"2) Update description of ala carte item\n" +
@@ -478,13 +481,12 @@ public class Restaurant {
 					continue;
 				}
 				sc.nextLine();
-				switch (subOption)
-				{
+				switch (subOption) {
 				case 1:
 					// name
 					System.out.printf("Current name: %s\n", alaCarteItem.getName());
 					System.out.print("Enter new name: \n");
-					String itemName = sc.nextLine(); 
+					String itemName = sc.nextLine();
 					alaCarteItem.setName(itemName);
 					System.out.println("Changed name of ala carte item to " + alaCarteItem.getName());
 					break;
@@ -492,7 +494,7 @@ public class Restaurant {
 					// desc
 					System.out.printf("Current description: %s\n", alaCarteItem.getDescription());
 					System.out.print("Enter new description: \n");
-					String itemDesc = sc.nextLine();	
+					String itemDesc = sc.nextLine();
 					alaCarteItem.setDescription(itemDesc);
 					System.out.println("Changed description of ala carte item to " + alaCarteItem.getDescription());
 					break;
@@ -514,7 +516,7 @@ public class Restaurant {
 					System.out.print("Invalid input. Returning to RRPSS menu for managing ala carte items...\n");
 				}
 				break;
-			case 3: 
+			case 3:
 				// remove
 				alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 				menu.removeMenuItem(alaCarteItem.getId());
@@ -530,16 +532,18 @@ public class Restaurant {
 			}
 		} while (option != 4);
 	}
+
 	/**
-	 * Helper function for runRRPSS(), 
-	 * which displays options to manage Promotion items on the Menu, 
-	 * and executes the appropriate functions based on user inputs.
-	 * @param sc 	Scanner object to request inputs
+	 * Helper function for runRRPSS(), which displays options to manage Promotion
+	 * items on the Menu, and executes the appropriate functions based on user
+	 * inputs.
+	 * 
+	 * @param sc Scanner object to request inputs
 	 */
-	private void promotionHelper(Scanner sc) 
-	{
+	private void promotionHelper(Scanner sc) {
 		Promotion promo;
 		int option = 0;
+
 		do 
 		{
 			System.out.print("\n====== RRPSS manage promotions ======\n");
@@ -555,17 +559,17 @@ public class Restaurant {
 				continue;
 			}
 			sc.nextLine();
-			switch (option) 
-			{
-			case 1: 
+			switch (option) {
+			case 1:
 				// create
 				System.out.print("Enter name of new promotional package: \n");
-				String name = sc.nextLine(); 
+				String name = sc.nextLine();
 				System.out.print("Enter description: \n");
 				String desc = sc.nextLine();
 				float price = inputPrice(sc);
 				promo = menu.createPromotion(name, desc, price);
 				System.out.printf("Enter number of ala carte items in promotional package: \n");
+
 				int numItems = 0;
 				do 
 				{
@@ -584,9 +588,8 @@ public class Restaurant {
 
 				} while (true);				
 				AlaCarte alaCarteItem;
-				for (int i=0; i<numItems; i++)
-				{
-					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false); 
+				for (int i = 0; i < numItems; i++) {
+					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 					promo.addItem(alaCarteItem);
 				}
 				System.out.printf("Added promotional package %s with %d items to menu\n",
@@ -595,6 +598,7 @@ public class Restaurant {
 			case 2:
 				// update
 				promo = (Promotion) inputMenuItem(sc, false, true);
+
 				System.out.printf("\n====== RRPSS update promotion %s =====\n", promo.getName());
 				System.out.printf("1) Update name of promotional package\n" +
 								"2) Update description of promotional package\n" +
@@ -610,13 +614,12 @@ public class Restaurant {
 					continue;
 				}
 				sc.nextLine();
-				switch (subOption)
-				{
+				switch (subOption) {
 				case 1:
 					// name
 					System.out.printf("Current name: %s\n", promo.getName());
 					System.out.print("Enter new name: \n");
-					String promoName = sc.nextLine(); 
+					String promoName = sc.nextLine();
 					promo.setName(promoName);
 					System.out.println("Changed name of promotional package to " + promo.getName());
 					break;
@@ -624,7 +627,7 @@ public class Restaurant {
 					// desc
 					System.out.printf("Current description: %s\n", promo.getDescription());
 					System.out.print("Enter new description: \n");
-					String promoDesc = sc.nextLine();	
+					String promoDesc = sc.nextLine();
 					promo.setDescription(promoDesc);
 					System.out.println("Changed description of promotional package to " + promo.getDescription());
 					break;
@@ -649,7 +652,7 @@ public class Restaurant {
 					System.out.print("Invalid input. Returning to RRPSS menu for managing promotions...\n");
 				}
 				break;
-			case 3: 
+			case 3:
 				// remove
 				promo = (Promotion) inputMenuItem(sc, false, true);
 				menu.removeMenuItem(promo.getId());
@@ -665,19 +668,20 @@ public class Restaurant {
 			}
 		} while (option != 4);
 	}
+
 	/**
-	 * Helper function for runRRPSS(), 
-	 * which displays options to manage orders using OrderManager, 
-	 * and executes the appropriate functions based on user inputs.
-	 * @param sc 	Scanner object to request inputs
+	 * Helper function for runRRPSS(), which displays options to manage orders using
+	 * OrderManager, and executes the appropriate functions based on user inputs.
+	 * 
+	 * @param sc Scanner object to request inputs
 	 */
-	private void orderHelper(Scanner sc) 
-	{
+	private void orderHelper(Scanner sc) {
 		int tableNum, quantity;
 		Order order;
 		MenuItem item;
 		int option = 0;
 		do {
+
 			System.out.print("\n====== RRPSS manage orders ======\n");
 			System.out.print("1) Create order\n" + 
 								"2) View order\n" + 
@@ -692,12 +696,11 @@ public class Restaurant {
 				continue;
 			}
 			sc.nextLine();
-			switch (option)
-			{
+			switch (option) {
 			case 1:
 				// create
 				Staff staff = inputStaff(sc);
-				LocalDateTime now = LocalDateTime.now(); 
+				LocalDateTime now = LocalDateTime.now();
 				Customer customer = inputCustomer(sc);
 				int pax = inputPax(sc);
 				tableNum = tableMgr.checkCurrentAvailability(pax);
@@ -705,9 +708,10 @@ public class Restaurant {
 				orderMgr.createOrder(staff, now, tableNum, customer);
 				System.out.printf("Order created for table %d ...\n", tableNum);
 				break;
-			case 2: 
+			case 2:
 				// view
 				tableNum = inputTableNum(sc);
+
 				order = orderMgr.getOrder(tableNum); 
 				if (order == null) 
 					System.out.printf("No order for table number %d!\n", tableNum);
@@ -718,11 +722,12 @@ public class Restaurant {
 				// add
 				tableNum = inputTableNum(sc);
 				order = orderMgr.getOrder(tableNum);
+
 				if (order == null) 
 					System.out.printf("No order created for table number %d!\n", tableNum);
 				else {
 					item = inputMenuItem(sc, true, true);
-					quantity = inputQuantity(sc);	 
+					quantity = inputQuantity(sc);
 					order.addItem(item, quantity);
 					System.out.printf("Added %d of %s to table %d's order\n",
 										quantity, item.getName(), tableNum);
@@ -732,11 +737,12 @@ public class Restaurant {
 				// remove
 				tableNum = inputTableNum(sc);
 				order = orderMgr.getOrder(tableNum);
+
 				if (order == null) 
 					System.out.printf("No order created for table number %d!\n", tableNum);
 				else {
 					item = inputMenuItem(sc, true, true);
-					quantity = inputQuantity(sc);	 
+					quantity = inputQuantity(sc);
 					order.removeItem(item, quantity);
 				}
 				break;
@@ -750,16 +756,18 @@ public class Restaurant {
 			}
 		} while (option != 5);
 	}
+
 	/**
-	 * Helper function for runRRPSS(), 
-	 * which displays options to manage reservations using ReservationManager, 
-	 * and executes the appropriate functions based on user inputs.
-	 * @param sc 	Scanner object to request inputs
+	 * Helper function for runRRPSS(), which displays options to manage reservations
+	 * using ReservationManager, and executes the appropriate functions based on
+	 * user inputs.
+	 * 
+	 * @param sc Scanner object to request inputs
 	 */
-	private void reservationHelper(Scanner sc) 
-	{
+	private void reservationHelper(Scanner sc) {
 		LocalDateTime dateTime;
 		String custName;
+
 		int option = 0;		
 		do 
 		{
@@ -776,10 +784,10 @@ public class Restaurant {
 				continue;
 			}
 			sc.nextLine();
-			switch (option) 
-			{
-			case 1: 
+			switch (option) {
+			case 1:
 				// create
+
 				do 
 				{
 					dateTime = inputDateTime(sc);
@@ -810,7 +818,7 @@ public class Restaurant {
 				dateTime = inputDateTime(sc);
 				resMgr.checkReservation(custName, dateTime);
 				break;
-			case 3: 
+			case 3:
 				// remove
 				System.out.print("Enter customer name: \n");
 				custName = sc.nextLine();
@@ -828,17 +836,18 @@ public class Restaurant {
 			default:
 				// invalid input
 				System.out.print("Invalid option. Please enter option 1-4.\n");
-			};
+			}
+			;
 		} while (option != 4);
 	}
+
 	/**
-	 * Function to run Restaurant Reservation and Point of Sale System (RRPSS). 
-	 * Displays main menu options to manage restaurant, 
-	 * and executes the appropriate functions based on user inputs.
+	 * Function to run Restaurant Reservation and Point of Sale System (RRPSS).
+	 * Displays main menu options to manage restaurant, and executes the appropriate
+	 * functions based on user inputs.
 	 */
-	public void runRRPSS() 
-	{
-		Scanner sc = new Scanner(System.in); 
+	public void runRRPSS() {
+		Scanner sc = new Scanner(System.in);
 		int option = 0;
 		do {
 			// update reservations
@@ -846,6 +855,7 @@ public class Restaurant {
 			tableMgr.setReservedTablesOccupied(resMgr);
 
 			// main menu and options
+
 			System.out.print("\n====== RRPSS main menu ======\n");
 			System.out.print("1) Manage ala carte items\n" + 
 							"2) Manage promotions\n" + 
@@ -863,8 +873,7 @@ public class Restaurant {
 				continue;
 			}
 			sc.nextLine();
-			switch (option) 
-			{
+			switch (option) {
 			case 1:
 				// ala carte items
 				alaCarteHelper(sc);
@@ -873,7 +882,7 @@ public class Restaurant {
 				// promotions
 				promotionHelper(sc);
 				break;
-			case 3: 
+			case 3:
 				// orders
 				orderHelper(sc);
 				break;
@@ -881,9 +890,10 @@ public class Restaurant {
 				// reservation bookings
 				reservationHelper(sc);
 				break;
-			case 5: 
+			case 5:
 				// table availability
 				int subOption = 0;
+
 				do 
 				{
 					System.out.print("\n====== RRPSS table availability ======\n");
@@ -904,8 +914,7 @@ public class Restaurant {
 				} while (true);
 				int pax = inputPax(sc);
 				int table = -1;
-				switch (subOption)
-				{
+				switch (subOption) {
 				case 1:
 					table = tableMgr.checkCurrentAvailability(pax);
 					break;
@@ -930,16 +939,18 @@ public class Restaurant {
 				// order invoice
 
 				int tableNum;
+
 				tableNum = inputTableNum(sc);
 				if (orderMgr.printOrderInvoice(tableNum))
 					tableMgr.setTableAvailability(tableNum, true);
 				break;
-			case 7: 
+			case 7:
 				// sale revenue report
 				System.out.print("REPORT PERIOD START: \n");
 				LocalDate startDate = inputDate(sc);
 				System.out.print("REPORT PERIOD END: \n");
 				LocalDate endDate = inputDate(sc);
+
 				if (startDate.isBefore(endDate) || startDate.isEqual(endDate))
 					orderMgr.generateSalesRevenueReport(startDate, endDate); 
 				else
@@ -952,7 +963,8 @@ public class Restaurant {
 			default:
 				// invalid input
 				System.out.print("Invalid option. Please enter option 1-8.\n");
-			};
+			}
+			;
 		} while (option != 8);
 		sc.close();
 	}

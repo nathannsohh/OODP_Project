@@ -16,7 +16,7 @@ public class TableManager {
 	 * The list of tables in the restaurant.
 	 */
 	private Table[] tables;
-	
+
 	/**
 	 * Creates the tables in the restaurant.
 	 */
@@ -24,21 +24,22 @@ public class TableManager {
 		tables = new Table[10];
 		String fileName = "tableData.txt";
 		System.out.printf("Reading table data from %s ...\n", fileName);
+
 		File file = new File(fileName);
 		try {
 			Scanner sc = new Scanner(file);
 			int i = 0;
-				while (sc.hasNextLine())
-				{
-					tables[i] = new Table(i+1, sc.nextInt(), true);
-					i++;
-				}
-				sc.close();
+			while (sc.hasNextLine()) {
+				tables[i] = new Table(i + 1, sc.nextInt(), true);
+				i++;
+			}
+			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
+
 
 	/**
 	 * Gets the list of all the tables in the restaurant.
@@ -58,21 +59,23 @@ public class TableManager {
 	public int checkFutureAvailability(int pax, LocalDateTime datetime, ReservationManager manager) { 
 		ArrayList<Reservation> reservationList = manager.getReservationList();
 		ArrayList<Integer> tableNumList = new ArrayList<Integer>();
-		for(int i = 0; i < reservationList.size(); i++){
-			if(reservationList.get(i).getDatetime().isEqual(datetime)) {
-				tableNumList.add(reservationList.get(i).getTableNumber());  // get list of tables that are reserved at datetime
+		for (int i = 0; i < reservationList.size(); i++) {
+			if (reservationList.get(i).getDatetime().isEqual(datetime)) {
+				tableNumList.add(reservationList.get(i).getTableNumber()); // get list of tables that are reserved at
+																			// datetime
 			}
 		}
-		for(int i = 0; i < 10; i++){
-			if(tableNumList.contains(i+1)){
+		for (int i = 0; i < 10; i++) {
+			if (tableNumList.contains(i + 1)) {
 				continue;
-			}
-			else {
-				if(tables[i].getCapacity() >= pax) return tables[i].getTableNumber();
+			} else {
+				if (tables[i].getCapacity() >= pax)
+					return tables[i].getTableNumber();
 			}
 		}
 		return -1;
 	}
+
 
 	/**
 	 * Checks if there is a table available currently for the number of pax wanting to eat at the restaurant
@@ -92,9 +95,12 @@ public class TableManager {
 	 * @return the outcome of the check, where true if valid, or false if invalid.
 	 */
 	public boolean isValidTableNumber(int tableNumber) {
-		if(tableNumber > 10 || tableNumber < 1) return false;
-		else return true;
+		if (tableNumber > 10 || tableNumber < 1)
+			return false;
+		else
+			return true;
 	}
+
 
 	/**
 	 * Changes the availability of a table in the restaurant.
@@ -112,8 +118,8 @@ public class TableManager {
 	public void setReservedTablesOccupied(ReservationManager manager) { 
 		for(int i = 0; i < manager.getReservationList().size(); i++){
 			if(LocalDateTime.now().isAfter(manager.getReservationList().get(i).getDatetime()) && LocalDateTime.now().isBefore(manager.getReservationList().get(i).getDatetime().plusMinutes(15)))
+
 				setTableAvailability(manager.getReservationList().get(i).getTableNumber(), false);
 		}
 	}
 }
-
