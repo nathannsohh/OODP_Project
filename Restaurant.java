@@ -3,14 +3,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.*;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.InputMismatchException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.regex.PatternSyntaxException;
 
 /**
  * Restaurant is the main class used to run the Restaurant Reservation and Point
@@ -433,6 +431,10 @@ public class Restaurant {
 		AlaCarte alaCarteItem;
 		int option = 0;
 		do {
+			// update reservations
+			resMgr.deleteInvalidReservations(tableMgr);
+			tableMgr.setReservedTablesOccupied(resMgr);
+			// ala carte menu and options
 			System.out.print("\n====== RRPSS manage ala carte items ======\n");
 			System.out.print("1) Create ala carte item\n" + "2) Update ala carte item\n" + "3) Remove ala carte item\n"
 					+ "4) Return to RRPSS application main menu\n");
@@ -536,6 +538,10 @@ public class Restaurant {
 		Promotion promo;
 		int option = 0;
 		do {
+			// update reservations
+			resMgr.deleteInvalidReservations(tableMgr);
+			tableMgr.setReservedTablesOccupied(resMgr);
+			// promotion menu and options
 			System.out.print("\n====== RRPSS manage promotions ======\n");
 			System.out.print("1) Create promotion\n" + "2) Update promotion\n" + "3) Remove promotion\n"
 					+ "4) View promotion details\n" + "5) Return to RRPSS application main menu\n");
@@ -674,6 +680,10 @@ public class Restaurant {
 		MenuItem item;
 		int option = 0;
 		do {
+			// update reservations
+			resMgr.deleteInvalidReservations(tableMgr);
+			tableMgr.setReservedTablesOccupied(resMgr);
+			// order menu and options
 			System.out.print("\n====== RRPSS manage orders ======\n");
 			System.out.print("1) Create order\n" + "2) View order\n" + "3) Add order item\n" + "4) Remove order item\n"
 					+ "5) Return to RRPSS application main menu\n");
@@ -755,6 +765,10 @@ public class Restaurant {
 		String custName;
 		int option = 0;
 		do {
+			// update reservations
+			resMgr.deleteInvalidReservations(tableMgr);
+			tableMgr.setReservedTablesOccupied(resMgr);
+			// reservation menu and options
 			System.out.print("\n====== RRPSS manage reservations ======\n");
 			System.out.print("1) Create reservation booking\n" + "2) Check reservation booking\n"
 					+ "3) Remove reservation booking\n" + "4) Return to RRPSS application main menu\n");
@@ -789,13 +803,6 @@ public class Restaurant {
 				System.out.print("Enter customer name: \n");
 				custName = sc.nextLine();
 				dateTime = inputDateTime(sc);
-				// do {
-				// if (dateTime.isAfter(LocalDateTime.now().minusMinutes(15)))
-				// break;
-				// else
-				// // senerio ? time input is more than 15mins ago
-				// System.out.println("Error: No Reservation.");
-				// } while (true);
 				resMgr.checkReservation(custName, dateTime);
 				break;
 			case 3:
@@ -833,6 +840,10 @@ public class Restaurant {
 		int table = -1;
 		LocalDateTime dateTime;
 		do {
+			// update reservations
+			resMgr.deleteInvalidReservations(tableMgr);
+			tableMgr.setReservedTablesOccupied(resMgr);
+			// table menu and options
 			System.out.print("\n====== RRPSS table availability ======\n");
 			System.out.print("1) Check current availability \n" + "2) Check future availability \n"
 					+ "3) Return to RRPSS application main menu\n");
