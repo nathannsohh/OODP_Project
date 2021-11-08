@@ -788,14 +788,14 @@ public class Restaurant {
 				// check
 				System.out.print("Enter customer name: \n");
 				custName = sc.nextLine();
-				do {
-					dateTime = inputDateTime(sc);
-					if (dateTime.isAfter(LocalDateTime.now())
-							|| dateTime.isBefore(LocalDateTime.now().minusMinutes(15)))
-						break;
-					else
-						System.out.println("Error: You can only reserve a table for a later time.");
-				} while (true);
+				dateTime = inputDateTime(sc);
+				// do {
+				// if (dateTime.isAfter(LocalDateTime.now().minusMinutes(15)))
+				// break;
+				// else
+				// // senerio ? time input is more than 15mins ago
+				// System.out.println("Error: No Reservation.");
+				// } while (true);
 				resMgr.checkReservation(custName, dateTime);
 				break;
 			case 3:
