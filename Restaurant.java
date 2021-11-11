@@ -899,7 +899,7 @@ public class Restaurant {
 					if (dateTime.isAfter(LocalDateTime.now()))
 						break;
 					else
-						System.out.println("Error: You can check table availability for a later time.");
+						System.out.println("Error: You can only check table availability for a later time.");
 				} while (true);
 				table = tableMgr.checkFutureAvailability(pax, dateTime, resMgr);
 				if (table != -1)
