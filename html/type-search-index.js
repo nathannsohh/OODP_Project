@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"cz2002.rrpss","l":"Customer"},{"p":"cz2002.rrpss","l":"Staff.Gender"},{"p":"cz2002.rrpss","l":"Staff.JobTitle"},{"p":"cz2002.rrpss","l":"Restaurant"},{"p":"cz2002.rrpss","l":"Staff"}];updateSearchResults();
