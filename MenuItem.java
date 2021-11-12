@@ -1,43 +1,43 @@
-/**
- * an abstract declaration of a menu item in the menu
- * 
- * @author Rui Xiang
- * @version 1.0
- * @since 2021-11-07
- */
 
 /**
- * The enumeration of possible type of food choices in the menu
+ * The enumeration of possible type of food choices in the menu.
  */
 enum Type {
 	DRINK, MAIN_COURSE, SIDE, DESSERT;
 };
 
+/**
+ * An abstract declaration of a menu item in the menu.
+ * 
+ * @author Rui Xiang
+ * @version 1.0
+ * @since 2021-11-07
+ */
 abstract public class MenuItem {
 	/**
-	 * Name of the menu item
+	 * Name of the menu item.
 	 */
 	private String name;
 	/**
-	 * Description of the menu item
+	 * Description of the menu item.
 	 */
 	private String description;
 	/**
-	 * Price of the menu item
+	 * Price of the menu item.
 	 */
 	private float price;
 	/**
-	 * A unique reference of the menu item
+	 * A unique reference of the menu item.
 	 */
 	private String id;
 
 	/**
-	 * Constructor to the Menu Item class
+	 * Constructor of the Menu Item class.
 	 * 
-	 * @param name  name of the menu item
-	 * @param desc  description of the menu item
-	 * @param price Price of the menu item in float
-	 * @param id    a unique reference string to the menu item
+	 * @param name  The name of the menu item.
+	 * @param desc  The description of the menu item.
+	 * @param price The price of the menu item in float.
+	 * @param id    The unique reference string to the menu item.
 	 */
 	public MenuItem(String name, String desc, float price, String id) {
 		this.name = name;

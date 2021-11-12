@@ -1,6 +1,6 @@
 
 /**
- * A Promotional set of alacarte item thats also a menu item
+ * A Promotional set of alacarte item thats also a menu item.
  * @author Rui Xiang
  * @version 1.0
  * @since 2021-11-07
@@ -10,17 +10,17 @@ import java.util.ArrayList;
 public class Promotion extends MenuItem {
 
 	/**
-	 * a list of alacarte items
+	 * A list of alacarte items.
 	 */
 	private ArrayList<AlaCarte> items;
 
 	/**
 	 * Creates a table with its table number, seating capacity and availability.
 	 * 
-	 * @param name  name of the menu item
-	 * @param desc  description of the menu item
-	 * @param price price of the menu item of float type
-	 * @param id    unqiue reference string of the menu item
+	 * @param name  The name of the menu item.
+	 * @param desc  The description of the menu item.
+	 * @param price The price of the menu item of float type.
+	 * @param id    The unqiue reference string of the menu item.
 	 */
 	public Promotion(String name, String desc, float price, String id) {
 		super(name, desc, price, id);
@@ -28,18 +28,18 @@ public class Promotion extends MenuItem {
 	};
 
 	/**
-	 * add a new alacarte item to this promotional set
+	 * Add a new alacarte item to this promotional set.
 	 * 
-	 * @param item the alacarte item to be added to the promotional set
+	 * @param item The alacarte item to be added to the promotional set.
 	 */
 	public void addItem(AlaCarte item) {
 		items.add(item);
 	}
 
 	/**
-	 * delete a new alacarte item to this promotional set
+	 * Delete a new alacarte item to this promotional set.
 	 * 
-	 * @param item the alacarte item to be added to the promotional set
+	 * @param item The alacarte item to be added to the promotional set.
 	 */
 	public boolean removeItem(AlaCarte item) {
 		int i = 0;
@@ -54,9 +54,9 @@ public class Promotion extends MenuItem {
 	}
 
 	/**
-	 * returns a list of all alacarte item's id in this promotion
+	 * Returns a list of all alacarte item's id in this promotion.
 	 * 
-	 * @return list of all alacarte item's id in this promotion
+	 * @return list of all alacarte item's id in this promotion.
 	 */
 	public ArrayList<String> getIDList() {
 		ArrayList<String> temp = new ArrayList<String>();
@@ -67,7 +67,7 @@ public class Promotion extends MenuItem {
 	}
 
 	/**
-	 * print out all the alacarte items in the promotion
+	 * Print out all the alacarte items in the promotion.
 	 */
 	public void displayPromotionItems() {
 		System.out.printf(">> Items in %s promotion: \n", this.getName());
@@ -78,7 +78,7 @@ public class Promotion extends MenuItem {
 	}
 
 	/**
-	 * check if current object is a alacarte
+	 * Returns false.
 	 */
 	@Override
 	public boolean isAlaCarte() {

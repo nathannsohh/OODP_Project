@@ -1,21 +1,40 @@
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
+ * Menu the class that manages the menu items to be served in the restaurant
+ * 
  * @author Rui Xiang
  * @version 1.0
  * @since 2021-11-07
  */
 
-import java.util.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-
 public class Menu {
+	/**
+	 * An array list of Menu item object containing ala carte to be referenced in
+	 * the restaurant.
+	 */
 	ArrayList<MenuItem> alaCarteItems;
+	/**
+	 * An array list of Menu item object containing promotional items to be
+	 * referenced in the restaurant.
+	 */
 	ArrayList<MenuItem> promotionItems;
 
+	/**
+	 * A counter used to generate unique id for new alacarte items created
+	 */
 	int alaCarteCounter = 1;
+	/**
+	 * A counter used to generate unique id for new promotional items created
+	 */
 	int promotionCounter = 1;
 
+	/**
+	 * 
+	 * Creates the Menu in the restaurant.
+	 */
 	public Menu() {
 		alaCarteItems = new ArrayList<MenuItem>();
 		promotionItems = new ArrayList<MenuItem>();
@@ -74,6 +93,15 @@ public class Menu {
 
 	}
 
+	/**
+	 * Creates Ala carte objects in the restaurant.
+	 * 
+	 * @param name  The name of the alacarte item.
+	 * @param desc  The description of the alacarte item.
+	 * @param price The price of the alacarte item.
+	 * @param type  The type of the alacarte item.
+	 * @return The alacarte object created.
+	 */
 	public AlaCarte createAlaCarte(String name, String desc, Float price, Type type) {
 		AlaCarte item = new AlaCarte(name, desc, price, type, Integer.toString(alaCarteCounter));
 		alaCarteItems.add(item);
@@ -82,6 +110,14 @@ public class Menu {
 
 	}
 
+	/**
+	 * Creates Promotion objects in the restaurant.
+	 * 
+	 * @param name  The name of the promotion item.
+	 * @param desc  The description of the promotion item.
+	 * @param price The price of the promotion item.
+	 * @return The Promotion object created.
+	 */
 	public Promotion createPromotion(String name, String desc, Float price) {
 		Promotion promo = new Promotion(name, desc, price, Integer.toString(promotionCounter + 100));
 		promotionItems.add(promo);
@@ -89,6 +125,11 @@ public class Menu {
 		return promo;
 	}
 
+	/**
+	 * remove the menu item referenced by menuItemID
+	 * 
+	 * @param menuItemId The unique reference string to the menu item
+	 */
 	public void removeMenuItem(String menuItemId) {
 		int found = -1;
 		int menuItemId_integer = Integer.parseInt(menuItemId);
@@ -128,6 +169,12 @@ public class Menu {
 		}
 	};
 
+	/**
+	 * Checks if the given menu item referenced by the menuItemID exists.
+	 * 
+	 * @param menuItemID The unique reference string to the menu item.
+	 * @return The boolean if menu item exist.
+	 */
 	public boolean isValidID(String menuItemID) {
 		for (int i = 0; i < alaCarteItems.size(); i++) {
 			if (alaCarteItems.get(i).getId().equals(menuItemID))
@@ -141,6 +188,12 @@ public class Menu {
 		return false;
 	};
 
+	/**
+	 * Returns the given menu item referenced by the menuItemID.
+	 * 
+	 * @param menuItemID The unique reference string to the menu item.
+	 * @return The menu item referenced by the menuItemID.
+	 */
 	public MenuItem getMenuItem(String menuItemID) {
 		for (int i = 0; i < alaCarteItems.size(); i++) {
 			if (alaCarteItems.get(i).getId().equals(menuItemID))
@@ -155,6 +208,9 @@ public class Menu {
 
 	}
 
+	/**
+	 * Print all the alacarte item that exist in the menu.
+	 */
 	public void displayAlaCarte() {
 		System.out.println(">> Ala Carte Items on Menu:");
 		AlaCarte temp;
@@ -194,6 +250,9 @@ public class Menu {
 		return;
 	}
 
+	/**
+	 * Prints out all the Promotion that exist in the restaurant.
+	 */
 	public void displayPromotion() {
 		System.out.println(">> Promotional Set Packages on Menu:");
 		for (int i = 0; i < promotionItems.size(); i++) {
@@ -202,6 +261,9 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Print out all the menu item that exist in the restaurant.
+	 */
 	public void displayMenu() {
 		displayAlaCarte();
 		displayPromotion();
