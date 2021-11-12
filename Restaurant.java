@@ -511,7 +511,6 @@ public class Restaurant {
 				menu.displayAlaCarte();
 				alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 				menu.removeMenuItem(alaCarteItem.getId());
-				System.out.printf("Removed %s from menu\n", alaCarteItem.getName());
 				break;
 			case 4:
 				// back to main
@@ -651,7 +650,6 @@ public class Restaurant {
 				menu.displayPromotion();
 				promo = (Promotion) inputMenuItem(sc, false, true);
 				menu.removeMenuItem(promo.getId());
-				System.out.printf("Removed %s from menu\n", promo.getName());
 				break;
 			case 4:
 				// print out items within this promotion

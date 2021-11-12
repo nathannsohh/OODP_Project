@@ -99,7 +99,8 @@ public class Menu {
 				ArrayList<String> temp = promoSet.getIDList();
 				for (int j = 0; j < temp.size(); j++) {
 					if (temp.contains(menuItemId)) {
-						System.out.println("This item Exist in a Promotion!\nPlease remove the Promotion first");
+						System.out.printf("This item exists in a Promotion!\nPlease remove it from %s first.\n",
+								promoSet.getName());
 						return;
 					}
 				}
@@ -110,7 +111,7 @@ public class Menu {
 			}
 			if (found != -1) {
 				alaCarteItems.remove(found);
-				System.out.println("Removed Successful");
+				System.out.println("Item removed successfully");
 			}
 
 		} else {
