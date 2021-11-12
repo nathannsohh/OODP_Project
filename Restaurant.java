@@ -823,9 +823,13 @@ public class Restaurant {
 				int pax = inputPax(sc);
 				Customer customer = inputCustomer(sc);
 				int tableNum = tableMgr.checkFutureAvailability(pax, dateTime, resMgr);
-				resMgr.createReservation(dateTime, pax, customer, tableNum);
-				System.out.printf("Reservation created for %s on %s for %d people\n", customer.getName(),
-						dateTime.format(DateTimeFormatter.ofPattern(dateTimeFormatString)), pax);
+				if (tableNum != -1) {
+					resMgr.createReservation(dateTime, pax, customer, tableNum);
+					System.out.printf("Reservation created for %s on %s for %d people\n", customer.getName(),
+							dateTime.format(DateTimeFormatter.ofPattern(dateTimeFormatString)), pax);
+				} else
+					System.out.printf("Error: No available table at %s for %d people.\n",
+							dateTime.format(DateTimeFormatter.ofPattern(dateTimeFormatString)), pax);
 				break;
 			case 2:
 				// check
