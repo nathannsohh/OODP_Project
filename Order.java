@@ -188,15 +188,9 @@ public class Order {
 		else {
 			// Else go through the list of order items and display the order items and their
 			// corresponding quantity.
-<<<<<<< HEAD
 			System.out.println("Quantity         ID   Items");
 			for (int j = 0; j < orderItems.size(); j++) {
 				System.out.printf("%-16d %-4s %-30s \n", orderItems.get(j).getQuantity(),
-=======
-			System.out.println("Quantity         ID      Items");
-			for (int j = 0; j < orderItems.size(); j++) {
-				System.out.printf("%-16d %-8s%-30s \n", orderItems.get(j).getQuantity(),
->>>>>>> 1abfdc69d3165bd4072bb618a4f58fca91d25e07
 						orderItems.get(j).getMenuItem().getId(), orderItems.get(j).getMenuItem().getName());
 			}
 		}
