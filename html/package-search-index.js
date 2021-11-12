@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"cz2002.rrpss"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"cz2002.rrpss"},{"l":"cz2002.rrpss.menu"},{"l":"cz2002.rrpss.order"},{"l":"cz2002.rrpss.reservation"},{"l":"cz2002.rrpss.table"}];updateSearchResults();
