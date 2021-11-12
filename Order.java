@@ -188,9 +188,15 @@ public class Order {
 		else {
 			// Else go through the list of order items and display the order items and their
 			// corresponding quantity.
+<<<<<<< HEAD
 			System.out.println("Quantity         ID   Items");
 			for (int j = 0; j < orderItems.size(); j++) {
 				System.out.printf("%-16d %-4s %-30s \n", orderItems.get(j).getQuantity(),
+=======
+			System.out.println("Quantity         ID      Items");
+			for (int j = 0; j < orderItems.size(); j++) {
+				System.out.printf("%-16d %-8s%-30s \n", orderItems.get(j).getQuantity(),
+>>>>>>> 1abfdc69d3165bd4072bb618a4f58fca91d25e07
 						orderItems.get(j).getMenuItem().getId(), orderItems.get(j).getMenuItem().getName());
 			}
 		}
@@ -228,12 +234,9 @@ public class Order {
 			System.out.println("_______________________________________________________");
 			System.out.printf("                                   Subtotal: %10.2f\n", subtotal);
 			// Members are entitled to a 10% discount off their subtotal.
-			if (customer.getMember() == true) {
+			if (customer.getMember() == true)
 				discount = (float) (subtotal * 0.10);
-				System.out.printf("                                   Discount: %10.2f\n", discount);
-			} else {
-				System.out.println("                                Discount: 0.00");
-			}
+			System.out.printf("                                   Discount: %10.2f\n", discount);
 			// The price of this order before Government Service Tax (GST).
 			priceBefGST = (float) ((subtotal - discount) * 1.10);
 			System.out.printf("                         10%% Service Charge: %10.2f\n",

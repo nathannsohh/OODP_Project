@@ -21,7 +21,7 @@ public class AlaCarte extends MenuItem {
 	}
 
 	@Override
-	public boolean checkAlacarte() {
+	public boolean isAlaCarte() {
 		return true;
 	}
 

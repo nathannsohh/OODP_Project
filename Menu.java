@@ -10,14 +10,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Menu {
-
-	//
 	ArrayList<MenuItem> alaCarteItems;
 	ArrayList<MenuItem> promotionItems;
 
 	int alaCarteCounter = 1;
 	int promotionCounter = 1;
-	// private Map<String, MenuItem> menuItems;
 
 	public Menu() {
 		alaCarteItems = new ArrayList<MenuItem>();
@@ -63,7 +60,6 @@ public class Menu {
 
 				String[] promo_item_ids = temp[3].split("-");
 
-				// System.out.print(promo_item_ids[1]);
 				for (int i = 0; i < promo_item_ids.length; i++) {
 					AlaCarte tempItem = (AlaCarte) getMenuItem(promo_item_ids[i]);
 					promo.addItem(tempItem);
@@ -78,6 +74,21 @@ public class Menu {
 
 	}
 
+	public AlaCarte createAlaCarte(String name, String desc, Float price, Type type) {
+		AlaCarte item = new AlaCarte(name, desc, price, type, Integer.toString(alaCarteCounter));
+		alaCarteItems.add(item);
+		alaCarteCounter++;
+		return item;
+
+	}
+
+	public Promotion createPromotion(String name, String desc, Float price) {
+		Promotion promo = new Promotion(name, desc, price, Integer.toString(promotionCounter + 100));
+		promotionItems.add(promo);
+		promotionCounter++;
+		return promo;
+	}
+
 	public void removeMenuItem(String menuItemId) {
 		int found = -1;
 		int menuItemId_integer = Integer.parseInt(menuItemId);
@@ -85,10 +96,11 @@ public class Menu {
 
 			for (int i = 0; i < promotionItems.size(); i++) {
 				Promotion promoSet = (Promotion) promotionItems.get(i);
-				ArrayList<String> temp = promoSet.findElements();
+				ArrayList<String> temp = promoSet.getIDList();
 				for (int j = 0; j < temp.size(); j++) {
 					if (temp.contains(menuItemId)) {
-						System.out.println("This item Exist in a Promotion!\nPlease remove the Promotion first");
+						System.out.printf("This item exists in a Promotion!\nPlease remove it from %s first.\n",
+								promoSet.getName());
 						return;
 					}
 				}
@@ -99,7 +111,7 @@ public class Menu {
 			}
 			if (found != -1) {
 				alaCarteItems.remove(found);
-				System.out.println("Removed Successful");
+				System.out.println("Item removed successfully");
 			}
 
 		} else {
@@ -143,21 +155,6 @@ public class Menu {
 
 	}
 
-	public AlaCarte createAlaCarte(String name, String desc, Float price, Type type) {
-		AlaCarte item = new AlaCarte(name, desc, price, type, Integer.toString(alaCarteCounter));
-		alaCarteItems.add(item);
-		alaCarteCounter++;
-		return item;
-
-	}
-
-	public Promotion createPromotion(String name, String desc, Float price) {
-		Promotion promo = new Promotion(name, desc, price, Integer.toString(promotionCounter + 100));
-		promotionItems.add(promo);
-		promotionCounter++;
-		return promo;
-	}
-
 	public void displayAlaCarte() {
 		System.out.println(">> Ala Carte Items on Menu:");
 		AlaCarte temp;
@@ -197,22 +194,16 @@ public class Menu {
 		return;
 	}
 
-	public void displayMenu() {
-		displayAlaCarte();
-		displayPromotion();
-	}
-
 	public void displayPromotion() {
 		System.out.println(">> Promotional Set Packages on Menu:");
 		for (int i = 0; i < promotionItems.size(); i++) {
 			Promotion temp = (Promotion) promotionItems.get(i);
 			System.out.printf("%-3s %-30s %.2f\n", temp.getId(), temp.getName(), temp.getPrice());
 		}
-
 	}
 
-	// public static void main(String[] args) {
-
-	// }
-
+	public void displayMenu() {
+		displayAlaCarte();
+		displayPromotion();
+	}
 }

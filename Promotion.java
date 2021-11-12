@@ -41,10 +41,16 @@ public class Promotion extends MenuItem {
 	 * 
 	 * @param item the alacarte item to be added to the promotional set
 	 */
-	public void removeItem(AlaCarte item) {
-		if (!items.remove(item)) {
-			System.out.println("Item does not exist in this promotion!");
+	public boolean removeItem(AlaCarte item) {
+		int i = 0;
+		while (i != items.size()) {
+			if (items.get(i) == item) {
+				items.remove(i);
+				return true;
+			}
+			i++;
 		}
+		return false;
 	}
 
 	/**
@@ -52,7 +58,7 @@ public class Promotion extends MenuItem {
 	 * 
 	 * @return list of all alacarte item's id in this promotion
 	 */
-	public ArrayList<String> findElements() {
+	public ArrayList<String> getIDList() {
 		ArrayList<String> temp = new ArrayList<String>();
 		for (int i = 0; i < items.size(); i++) {
 			temp.add(items.get(i).getId());
@@ -64,17 +70,18 @@ public class Promotion extends MenuItem {
 	 * print out all the alacarte items in the promotion
 	 */
 	public void displayPromotionItems() {
-		// System.out.println("hello hehe");
+		System.out.printf(">> Items in %s promotion: \n", this.getName());
+		System.out.println("ID          NAME");
 		for (int i = 0; i < items.size(); i++) {
-			System.out.println(items.get(i).getName());
+			System.out.printf("%-3s %-30s \n", items.get(i).getId(), items.get(i).getName());
 		}
 	}
 
 	/**
-	 * check if current objec is a alacarte
+	 * check if current object is a alacarte
 	 */
 	@Override
-	public boolean checkAlacarte() {
+	public boolean isAlaCarte() {
 		return false;
 	}
 

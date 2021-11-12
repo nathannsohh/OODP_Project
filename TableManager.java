@@ -142,8 +142,12 @@ public class TableManager {
 	public void displayCurrentTableAvail() {
 		for (int i = 0; i < 10; i++) {
 			if (tables[i].getAvailable() == true)
+<<<<<<< HEAD
 				System.out.println(String.format("Table %-2d", tables[i].getTableNumber())
 						+ String.format(" for %-2d pax", tables[i].getCapacity()) + ": AVAILABLE");
+=======
+				System.out.println("Table " + tables[i].getTableNumber() + ": AVAILABLE");
+>>>>>>> 1abfdc69d3165bd4072bb618a4f58fca91d25e07
 			else
 				System.out.println(String.format("Table %-2d", tables[i].getTableNumber())
 						+ String.format(" for %-2d pax", tables[i].getCapacity()) + ": UNAVAILABLE");
