@@ -225,13 +225,13 @@ public class Restaurant {
 				item = menu.getMenuItem(menuItemID);
 				if (isAlaCarte && !isPromo) // only accept ala carte
 				{
-					if (item.checkAlacarte())
+					if (item.isAlaCarte())
 						break;
 					else
 						System.out.print("Invalid input. Please enter ID of ala carte item.\n");
 				} else if (!isAlaCarte && isPromo) // only accept promo
 				{
-					if (!item.checkAlacarte())
+					if (!item.isAlaCarte())
 						break;
 					else
 						System.out.print("Invalid input. Please enter ID of promotion item.\n");
@@ -366,7 +366,7 @@ public class Restaurant {
 	 * @param sc Scanner object to request inputs
 	 * @return table number
 	 */
-	private int inputTableNum(Scanner sc) {
+	private int inputTableNumber(Scanner sc) {
 		int tableNum;
 		do {
 			System.out.print("Enter table number: \n");
@@ -627,7 +627,6 @@ public class Restaurant {
 					break;
 				case 4:
 					// add
-					System.out.println("Current items in promotional package");
 					promo.displayPromotionItems();
 					menu.displayAlaCarte();
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
@@ -636,12 +635,12 @@ public class Restaurant {
 					break;
 				case 5:
 					// remove
-					System.out.println("Current items in promotional package");
 					promo.displayPromotionItems();
-					menu.displayAlaCarte();
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
-					promo.removeItem(alaCarteItem);
-					System.out.printf("Removed %s from promotional package\n", alaCarteItem.getName());
+					if (promo.removeItem(alaCarteItem))
+						System.out.printf("Removed %s from promotional package\n", alaCarteItem.getName());
+					else
+						System.out.printf("%s is not an item in this promotion!\n", alaCarteItem.getName());
 					break;
 				default:
 					System.out.print("Invalid input. Returning to RRPSS menu for managing promotions...\n");
@@ -736,7 +735,7 @@ public class Restaurant {
 				break;
 			case 2:
 				// view
-				tableNum = inputTableNum(sc);
+				tableNum = inputTableNumber(sc);
 				order = orderMgr.getOrder(tableNum);
 				if (order == null)
 					System.out.printf("No order for table number %d!\n", tableNum);
@@ -745,7 +744,7 @@ public class Restaurant {
 				break;
 			case 3:
 				// add
-				tableNum = inputTableNum(sc);
+				tableNum = inputTableNumber(sc);
 				order = orderMgr.getOrder(tableNum);
 				if (order == null)
 					System.out.printf("No order created for table number %d!\n", tableNum);
@@ -759,7 +758,7 @@ public class Restaurant {
 				break;
 			case 4:
 				// remove
-				tableNum = inputTableNum(sc);
+				tableNum = inputTableNumber(sc);
 				order = orderMgr.getOrder(tableNum);
 				if (order == null)
 					System.out.printf("No order created for table number %d!\n", tableNum);
@@ -976,7 +975,7 @@ public class Restaurant {
 			case 6:
 				// order invoice
 				int tableNum;
-				tableNum = inputTableNum(sc);
+				tableNum = inputTableNumber(sc);
 				if (orderMgr.printOrderInvoice(tableNum))
 					tableMgr.setTableAvailability(tableNum, true);
 				break;

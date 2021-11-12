@@ -47,24 +47,6 @@ abstract public class MenuItem {
 	};
 
 	/**
-	 * Gets the unique reference string of the menu item
-	 * 
-	 * @return unique reference string of the menu item
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * Change the unique reference string of the menu item
-	 * 
-	 * @param id the new unique reference string of menu item
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	/**
 	 * Gets the name of the menu item
 	 * 
 	 * @return name of the menu item
@@ -115,9 +97,26 @@ abstract public class MenuItem {
 	 * 
 	 * @param price the new price of the menu item
 	 */
-
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	/**
+	 * Gets the unique reference string of the menu item
+	 * 
+	 * @return unique reference string of the menu item
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * Change the unique reference string of the menu item
+	 * 
+	 * @param id the new unique reference string of menu item
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
@@ -125,5 +124,5 @@ abstract public class MenuItem {
 	 * 
 	 * @return check if the current class is a alacarte object or not
 	 */
-	abstract public boolean checkAlacarte();
+	abstract public boolean isAlaCarte();
 }
