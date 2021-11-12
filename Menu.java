@@ -47,6 +47,7 @@ public class Menu {
 				alaCarteItems.add(var1);
 				alaCarteCounter++;
 			}
+			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -69,9 +70,8 @@ public class Menu {
 				}
 				promotionItems.add(promo);
 				promotionCounter++;
-
 			}
-
+			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
