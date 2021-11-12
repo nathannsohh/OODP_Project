@@ -159,6 +159,7 @@ public class Menu {
 	}
 
 	public void displayAlaCarte() {
+		System.out.println(">> Ala Carte Items on Menu:");
 		AlaCarte temp;
 		System.out.println("ID          NAME                   PRICE");
 		for (int i = 0; i < alaCarteItems.size(); i++) {
@@ -198,13 +199,11 @@ public class Menu {
 
 	public void displayMenu() {
 		displayAlaCarte();
-		for (int i = 0; i < promotionItems.size(); i++) {
-			Promotion temp = (Promotion) promotionItems.get(i);
-			System.out.printf("%-3s %-30s %.2f\n", temp.getId(), temp.getName(), temp.getPrice());
-		}
+		displayPromotion();
 	}
 
 	public void displayPromotion() {
+		System.out.println(">> Promotional Set Packages on Menu:");
 		for (int i = 0; i < promotionItems.size(); i++) {
 			Promotion temp = (Promotion) promotionItems.get(i);
 			System.out.printf("%-3s %-30s %.2f\n", temp.getId(), temp.getName(), temp.getPrice());

@@ -219,12 +219,6 @@ public class Restaurant {
 		String menuItemID;
 		MenuItem item;
 		do {
-			if (isAlaCarte && isPromo)
-				menu.displayMenu();
-			else if (isAlaCarte)
-				menu.displayAlaCarte();
-			else if (isPromo)
-				menu.displayPromotion();
 			System.out.print("Enter menu item ID: ");
 			menuItemID = sc.next();
 			if (menu.isValidID(menuItemID)) {
@@ -462,6 +456,7 @@ public class Restaurant {
 				break;
 			case 2:
 				// update
+				menu.displayAlaCarte();
 				alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 				System.out.printf("\n====== RRPSS update ala carte item %s =====\n", alaCarteItem.getName());
 				System.out.printf("1) Update name of ala carte item\n" + "2) Update description of ala carte item\n"
@@ -513,6 +508,7 @@ public class Restaurant {
 				break;
 			case 3:
 				// remove
+				menu.displayAlaCarte();
 				alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 				menu.removeMenuItem(alaCarteItem.getId());
 				System.out.printf("Removed %s from menu\n", alaCarteItem.getName());
@@ -579,6 +575,7 @@ public class Restaurant {
 					else
 						System.out.println("Invalid input. Promotional package must have at least 1 item.");
 				} while (true);
+				menu.displayAlaCarte();
 				AlaCarte alaCarteItem;
 				for (int i = 0; i < numItems; i++) {
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
@@ -588,6 +585,7 @@ public class Restaurant {
 				break;
 			case 2:
 				// update
+				menu.displayPromotion();
 				promo = (Promotion) inputMenuItem(sc, false, true);
 				System.out.printf("\n====== RRPSS update promotion %s =====\n", promo.getName());
 				System.out.printf("1) Update name of promotional package\n"
@@ -631,6 +629,7 @@ public class Restaurant {
 					// add
 					System.out.println("Current items in promotional package");
 					promo.displayPromotionItems();
+					menu.displayAlaCarte();
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 					promo.addItem(alaCarteItem);
 					System.out.printf("Added %s to promotional package\n", alaCarteItem.getName());
@@ -639,6 +638,7 @@ public class Restaurant {
 					// remove
 					System.out.println("Current items in promotional package");
 					promo.displayPromotionItems();
+					menu.displayAlaCarte();
 					alaCarteItem = (AlaCarte) inputMenuItem(sc, true, false);
 					promo.removeItem(alaCarteItem);
 					System.out.printf("Removed %s from promotional package\n", alaCarteItem.getName());
@@ -649,12 +649,14 @@ public class Restaurant {
 				break;
 			case 3:
 				// remove
+				menu.displayPromotion();
 				promo = (Promotion) inputMenuItem(sc, false, true);
 				menu.removeMenuItem(promo.getId());
 				System.out.printf("Removed %s from menu\n", promo.getName());
 				break;
 			case 4:
 				// print out items within this promotion
+				menu.displayPromotion();
 				promo = (Promotion) inputMenuItem(sc, false, true);
 				promo.displayPromotionItems();
 				break;
@@ -748,6 +750,7 @@ public class Restaurant {
 				if (order == null)
 					System.out.printf("No order created for table number %d!\n", tableNum);
 				else {
+					menu.displayMenu();
 					item = inputMenuItem(sc, true, true);
 					quantity = inputQuantity(sc);
 					order.addItem(item, quantity);
@@ -761,6 +764,8 @@ public class Restaurant {
 				if (order == null)
 					System.out.printf("No order created for table number %d!\n", tableNum);
 				else {
+					System.out.printf(">> Current order for table %d: \n", tableNum);
+					order.viewOrder();
 					item = inputMenuItem(sc, true, true);
 					quantity = inputQuantity(sc);
 					order.removeItem(item, quantity);
