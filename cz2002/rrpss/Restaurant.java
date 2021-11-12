@@ -736,10 +736,14 @@ public class Restaurant {
 					customer = inputCustomer(sc);
 					int pax = inputPax(sc);
 					tableNum = tableMgr.checkCurrentAvailability(pax);
-					tableMgr.setTableAvailability(tableNum, false);
+					if (tableNum == -1)
+						System.out.printf("There are no available tables for %d pax currently.\n", pax);
+					else {
+						tableMgr.setTableAvailability(tableNum, false);
+						orderMgr.createOrder(staff, LocalDateTime.now(), tableNum, customer);
+						System.out.printf("Order created for table %d\n", tableNum);
+					}
 				}
-				orderMgr.createOrder(staff, LocalDateTime.now(), tableNum, customer);
-				System.out.printf("Order created for table %d\n", tableNum);
 				break;
 			case 2:
 				// view

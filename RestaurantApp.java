@@ -1,3 +1,4 @@
+
 import cz2002.rrpss.Restaurant;
 
 /**
