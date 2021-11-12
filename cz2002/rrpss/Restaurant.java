@@ -1,3 +1,10 @@
+package cz2002.rrpss;
+
+import cz2002.rrpss.menu.*;
+import cz2002.rrpss.order.*;
+import cz2002.rrpss.reservation.*;
+import cz2002.rrpss.table.*;
+
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -63,23 +70,23 @@ public class Restaurant {
 		BufferedReader br;
 		String line, data[];
 		Staff staff;
-		Gender g;
-		JobTitle j;
+		Staff.Gender g;
+		Staff.JobTitle j;
 		try {
 			br = new BufferedReader(new FileReader(file));
 			while ((line = br.readLine()) != null) {
 				data = line.split("\\|");
 				// name|gender|employeeID|jobTitle
 				if (data[1] == "M")
-					g = Gender.MALE;
+					g = Staff.Gender.MALE;
 				else
-					g = Gender.FEMALE;
+					g = Staff.Gender.FEMALE;
 				if (data[3] == "W")
-					j = JobTitle.WAITER;
+					j = Staff.JobTitle.WAITER;
 				else if (data[3] == "C")
-					j = JobTitle.CASHIER;
+					j = Staff.JobTitle.CASHIER;
 				else
-					j = JobTitle.MANAGER;
+					j = Staff.JobTitle.MANAGER;
 				staff = new Staff(data[0], g, data[2], j);
 				staffList.add(staff);
 			}
@@ -390,7 +397,7 @@ public class Restaurant {
 	 * @param sc Scanner object to request inputs
 	 * @return type
 	 */
-	private Type inputType(Scanner sc) {
+	private AlaCarte.Type inputType(Scanner sc) {
 		int num = 0;
 		do {
 			System.out.print("1) Main course\n" + "2) Side\n" + "3) Drink\n" + "4) Dessert\n");
@@ -405,13 +412,13 @@ public class Restaurant {
 			sc.nextLine();
 			switch (num) {
 			case 1:
-				return Type.MAIN_COURSE;
+				return AlaCarte.Type.MAIN_COURSE;
 			case 2:
-				return Type.SIDE;
+				return AlaCarte.Type.SIDE;
 			case 3:
-				return Type.DRINK;
+				return AlaCarte.Type.DRINK;
 			case 4:
-				return Type.DESSERT;
+				return AlaCarte.Type.DESSERT;
 			default:
 				System.out.print("Invalid input. Please enter 1-4 to select valid type.\n");
 			}
@@ -453,7 +460,7 @@ public class Restaurant {
 				System.out.print("Enter description: \n");
 				String desc = sc.nextLine();
 				float price = inputPrice(sc);
-				Type type = inputType(sc);
+				AlaCarte.Type type = inputType(sc);
 				menu.createAlaCarte(name, desc, price, type);
 				System.out.printf("Added %s to menu\n", name);
 				break;
@@ -501,7 +508,7 @@ public class Restaurant {
 				case 4:
 					// type
 					System.out.printf("Current type: %d\n", alaCarteItem.getType());
-					Type itemType = inputType(sc);
+					AlaCarte.Type itemType = inputType(sc);
 					alaCarteItem.setType(itemType);
 					System.out.println("Changed type of ala carte item to " + alaCarteItem.getType());
 					break;

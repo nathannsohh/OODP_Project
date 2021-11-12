@@ -1,3 +1,5 @@
+package cz2002.rrpss;
+
 /**
  * Represents a customer of the restaurant.
  * 

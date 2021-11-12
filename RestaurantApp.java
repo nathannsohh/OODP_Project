@@ -1,3 +1,5 @@
+import cz2002.rrpss.Restaurant;
+
 /**
  * RestaurantApp is the application class for Restaurant
  * 

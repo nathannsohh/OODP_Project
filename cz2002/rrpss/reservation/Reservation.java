@@ -1,3 +1,6 @@
+package cz2002.rrpss.reservation;
+
+import cz2002.rrpss.Customer;
 import java.time.*;
 
 /**

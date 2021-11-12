@@ -1,3 +1,5 @@
+package cz2002.rrpss.table;
+
 /**
  * Represents a single table in the restaurant.
  * 

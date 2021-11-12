@@ -1,16 +1,4 @@
-/**
- * The enumeration of possible gender of staff.
- */
-enum Gender {
-	MALE, FEMALE
-};
-
-/**
- * The enumeration of possible job titles of staff.
- */
-enum JobTitle {
-	WAITER, CASHIER, MANAGER
-};
+package cz2002.rrpss;
 
 /**
  * Represents a staff of the restaurant.
@@ -20,6 +8,20 @@ enum JobTitle {
  * @since 2021-11-06
  */
 public class Staff {
+	/**
+	 * The enumeration of possible gender of staff.
+	 */
+	public enum Gender {
+		MALE, FEMALE
+	};
+
+	/**
+	 * The enumeration of possible job titles of staff.
+	 */
+	public enum JobTitle {
+		WAITER, CASHIER, MANAGER
+	};
+
 	/**
 	 * The first and last name of this staff.
 	 */

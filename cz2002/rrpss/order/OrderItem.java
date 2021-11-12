@@ -1,3 +1,7 @@
+package cz2002.rrpss.order;
+
+import cz2002.rrpss.menu.MenuItem;
+
 /**
  * Represents an order item in an order.
  * 

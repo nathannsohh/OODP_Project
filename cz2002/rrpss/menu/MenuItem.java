@@ -1,13 +1,7 @@
+package cz2002.rrpss.menu;
 
 /**
- * The enumeration of possible type of food choices in the menu.
- */
-enum Type {
-	DRINK, MAIN_COURSE, SIDE, DESSERT;
-};
-
-/**
- * An abstract declaration of a menu item in the menu.
+ * an abstract declaration of a menu item in the menu
  * 
  * @author Rui Xiang
  * @version 1.0

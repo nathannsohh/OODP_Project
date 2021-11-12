@@ -1,6 +1,11 @@
-import java.util.ArrayList;
+package cz2002.rrpss.reservation;
+
+import cz2002.rrpss.Customer;
+import cz2002.rrpss.table.TableManager;
+
 import java.time.*;
 import java.time.format.*;
+import java.util.ArrayList;
 
 /**
  * ReservationManager is the class that manages all methods related to

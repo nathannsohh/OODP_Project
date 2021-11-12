@@ -1,3 +1,8 @@
+package cz2002.rrpss.order;
+
+import cz2002.rrpss.Customer;
+import cz2002.rrpss.Staff;
+import cz2002.rrpss.menu.MenuItem;
 import java.util.*;
 import java.time.*;
 

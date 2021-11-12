@@ -1,3 +1,5 @@
+package cz2002.rrpss.menu;
+
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,7 +42,7 @@ public class Menu {
 		promotionItems = new ArrayList<MenuItem>();
 		AlaCarte var1;
 		Promotion promo;
-		Type type;
+		AlaCarte.Type type;
 
 		System.out.println("Reading menu data from alacarte.csv ...");
 		File file = new File("alacarte.csv");
@@ -51,13 +53,13 @@ public class Menu {
 				String[] temp = data.split(",");
 
 				if (temp[4].equals("1")) {
-					type = Type.MAIN_COURSE;
+					type = AlaCarte.Type.MAIN_COURSE;
 				} else if (temp[4].equals("2")) {
-					type = Type.SIDE;
+					type = AlaCarte.Type.SIDE;
 				} else if (temp[4].equals("3")) {
-					type = Type.DRINK;
+					type = AlaCarte.Type.DRINK;
 				} else {
-					type = Type.DESSERT;
+					type = AlaCarte.Type.DESSERT;
 				}
 				var1 = new AlaCarte(temp[1], temp[2], Float.parseFloat(temp[3]), type, temp[0]);
 				alaCarteItems.add(var1);
@@ -102,7 +104,7 @@ public class Menu {
 	 * @param type  The type of the alacarte item.
 	 * @return The alacarte object created.
 	 */
-	public AlaCarte createAlaCarte(String name, String desc, Float price, Type type) {
+	public AlaCarte createAlaCarte(String name, String desc, Float price, AlaCarte.Type type) {
 		AlaCarte item = new AlaCarte(name, desc, price, type, Integer.toString(alaCarteCounter));
 		alaCarteItems.add(item);
 		alaCarteCounter++;
@@ -218,7 +220,7 @@ public class Menu {
 		for (int i = 0; i < alaCarteItems.size(); i++) {
 
 			temp = (AlaCarte) alaCarteItems.get(i);
-			if (temp.getType() == Type.MAIN_COURSE) {
+			if (temp.getType() == AlaCarte.Type.MAIN_COURSE) {
 				System.out.printf("%-3s %-30s %.2f", temp.getId(), temp.getName(), temp.getPrice());
 				System.out.println("");
 			}
@@ -226,7 +228,7 @@ public class Menu {
 		for (int i = 0; i < alaCarteItems.size(); i++) {
 
 			temp = (AlaCarte) alaCarteItems.get(i);
-			if (temp.getType() == Type.SIDE) {
+			if (temp.getType() == AlaCarte.Type.SIDE) {
 				System.out.printf("%-3s %-30s %.2f", temp.getId(), temp.getName(), temp.getPrice());
 				System.out.println("");
 			}
@@ -234,7 +236,7 @@ public class Menu {
 		for (int i = 0; i < alaCarteItems.size(); i++) {
 
 			temp = (AlaCarte) alaCarteItems.get(i);
-			if (temp.getType() == Type.DRINK) {
+			if (temp.getType() == AlaCarte.Type.DRINK) {
 				System.out.printf("%-3s %-30s %.2f", temp.getId(), temp.getName(), temp.getPrice());
 				System.out.println("");
 			}
@@ -242,7 +244,7 @@ public class Menu {
 		for (int i = 0; i < alaCarteItems.size(); i++) {
 
 			temp = (AlaCarte) alaCarteItems.get(i);
-			if (temp.getType() == Type.DESSERT) {
+			if (temp.getType() == AlaCarte.Type.DESSERT) {
 				System.out.printf("%-3s %-30s %.2f", temp.getId(), temp.getName(), temp.getPrice());
 				System.out.println("");
 			}

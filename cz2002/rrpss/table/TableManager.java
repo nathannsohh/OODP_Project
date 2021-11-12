@@ -1,3 +1,7 @@
+package cz2002.rrpss.table;
+
+import cz2002.rrpss.reservation.Reservation;
+import cz2002.rrpss.reservation.ReservationManager;
 import java.util.ArrayList;
 import java.time.*;
 import java.io.File;

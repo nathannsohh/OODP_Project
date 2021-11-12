@@ -1,3 +1,5 @@
+package cz2002.rrpss.menu;
+
 /**
  * AlaCarte class that represents the alacarte menu items in the menu.
  * 
@@ -5,8 +7,14 @@
  * @version 1.0
  * @since 2021-11-07
  */
-
 public class AlaCarte extends MenuItem {
+	/**
+	 * The enumeration of possible type of food choices in the menu
+	 */
+	public enum Type {
+		DRINK, MAIN_COURSE, SIDE, DESSERT;
+	};
+
 	/**
 	 * The type of food of this alacarte item.
 	 */
