@@ -16,7 +16,7 @@ import java.io.IOException;
  * 
  * @author Nicole
  * @version 1.0
- * @since 2021-11-07
+ * @since 2021-11-12
  */
 public class Restaurant {
 	/**
@@ -125,6 +125,7 @@ public class Restaurant {
 		do {
 			System.out.print("Is customer a member? (Y/N) \n");
 			membership = sc.next().toUpperCase().charAt(0);
+			sc.nextLine();
 			if (membership == 'Y' || membership == 'N')
 				break;
 			else
@@ -687,7 +688,7 @@ public class Restaurant {
 			System.out.print("\n====== RRPSS manage orders ======\n");
 			System.out.print("1) Create order\n" + "2) View order\n" + "3) Add order item\n" + "4) Remove order item\n"
 					+ "5) Return to RRPSS application main menu\n");
-			System.out.print("Enter option number: ");
+			System.out.print("Enter option number: \n");
 			try {
 				option = sc.nextInt();
 			} catch (InputMismatchException e) {
@@ -700,12 +701,35 @@ public class Restaurant {
 			case 1:
 				// create
 				Staff staff = inputStaff(sc);
-				LocalDateTime now = LocalDateTime.now();
-				Customer customer = inputCustomer(sc);
-				int pax = inputPax(sc);
-				tableNum = tableMgr.checkCurrentAvailability(pax);
-				tableMgr.setTableAvailability(tableNum, false);
-				orderMgr.createOrder(staff, now, tableNum, customer);
+				char hasRes;
+				Reservation res = null;
+				do {
+					System.out.println("Does customer have a reservation? (Y/N)");
+					hasRes = sc.next().toUpperCase().charAt(0);
+					sc.nextLine();
+					if (hasRes == 'Y' || hasRes == 'N')
+						break;
+					else
+						System.out.println("Invalid input. Please enter Y or N.");
+				} while (true);
+				if (hasRes == 'Y') {
+					System.out.print("Enter customer name: \n");
+					String custName = sc.nextLine();
+					res = resMgr.checkReservation(custName,
+							LocalDateTime.now().withMinute(0).withSecond(0).withNano(0));
+				}
+				Customer customer;
+				if (res != null) { // reservation found
+					tableNum = res.getTableNumber();
+					customer = res.getCustomer();
+					resMgr.removeReservation(customer.getName(), res.getDatetime());
+				} else {
+					customer = inputCustomer(sc);
+					int pax = inputPax(sc);
+					tableNum = tableMgr.checkCurrentAvailability(pax);
+					tableMgr.setTableAvailability(tableNum, false);
+				}
+				orderMgr.createOrder(staff, LocalDateTime.now(), tableNum, customer);
 				System.out.printf("Order created for table %d\n", tableNum);
 				break;
 			case 2:
@@ -856,10 +880,10 @@ public class Restaurant {
 				continue;
 			}
 			sc.nextLine();
-			pax = inputPax(sc);
 			table = -1;
 			switch (option) {
 			case 1:
+				pax = inputPax(sc);
 				table = tableMgr.checkCurrentAvailability(pax);
 				if (table != -1)
 					System.out.printf("Table for %d AVAILABLE\n", pax);
@@ -869,6 +893,7 @@ public class Restaurant {
 				tableMgr.displayCurrentTableAvail();
 				break;
 			case 2:
+				pax = inputPax(sc);
 				do {
 					dateTime = inputDateTime(sc);
 					if (dateTime.isAfter(LocalDateTime.now()))

@@ -76,27 +76,25 @@ public class ReservationManager {
 	 * 
 	 * @param customer the name of the customer who made the reservation
 	 * @param dateTime date and time of the reservation made
+	 * @return the reservation object, or null if the reservation was not found
 	 */
-	public void checkReservation(String customer, LocalDateTime dateTime) {
+	public Reservation checkReservation(String customer, LocalDateTime dateTime) {
 		int i = 0;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 		while (i != reservations.size()) {
 			if (reservations.get(i).getCustomer().getName().equals(customer)
 					&& reservations.get(i).getDatetime().isEqual(dateTime)) {
-
 				System.out.println("Reservation Details:");
 				System.out.println("Reservation Name: " + reservations.get(i).getCustomer().getName());
 				System.out.println("Date and Time: " + reservations.get(i).getDatetime().format(formatter));
 				System.out.println("Pax: " + reservations.get(i).getPax());
 				System.out.println("Table No.: " + reservations.get(i).getTableNumber());
-				break;
+				return reservations.get(i);
 			}
 			i++;
 		}
-		if (i == reservations.size()) {
-			System.out.println("No such reservation found!");
-		}
-
+		System.out.println("No such reservation found!");
+		return null;
 	}
 
 	/**
@@ -125,7 +123,8 @@ public class ReservationManager {
 	 * Deletes reservations that expires from the arraylist of reservations if the
 	 * customer does not show up 15mins past their reservation time
 	 * 
-	 * @param manager the class that manages the tables in the restaurant
+	 * @param manager an object from the class that manages the tables in the
+	 *                restaurant
 	 */
 	public void deleteInvalidReservations(TableManager manager) {
 		int i = 0;
