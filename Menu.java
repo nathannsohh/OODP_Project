@@ -96,7 +96,7 @@ public class Menu {
 
 			for (int i = 0; i < promotionItems.size(); i++) {
 				Promotion promoSet = (Promotion) promotionItems.get(i);
-				ArrayList<String> temp = promoSet.findElements();
+				ArrayList<String> temp = promoSet.getIDList();
 				for (int j = 0; j < temp.size(); j++) {
 					if (temp.contains(menuItemId)) {
 						System.out.println("This item Exist in a Promotion!\nPlease remove the Promotion first");
