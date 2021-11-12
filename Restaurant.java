@@ -188,12 +188,15 @@ public class Restaurant {
 			} catch (InputMismatchException e) {
 				System.out.println("Please input a valid hour for reservation!");
 				sc.nextLine();
+				valid = false;
 				continue;
 			}
 			sc.nextLine();
 			dateTimeString = String.format("%s %02d:00", dateString, hour);
 			try {
 				dateTime = LocalDateTime.parse(dateTimeString, formatter);
+				if (dateTime == null)
+					valid = false;
 			} catch (DateTimeParseException exc) {
 				System.out.printf("Invalid datetime input: %s is not parsable!\n", dateTimeString);
 				valid = false;
