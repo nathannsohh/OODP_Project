@@ -15,6 +15,6 @@ public class RestaurantApp {
 	 */
 	public static void main(String[] args) {
 		Restaurant r = new Restaurant();
-		r.runRRPSS();
+		r.runRRPSS(); //test
 	}
 }
